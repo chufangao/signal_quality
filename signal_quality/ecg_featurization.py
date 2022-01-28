@@ -10,7 +10,11 @@ def featurize_beats(beats):
 
 
 def featurize_windows(windows, sampling_rate, show=False):
-    ### windows is list of 1D numpy arrays (can be of varying length)
+    """
+    windows = list of 1D numpy arrays (can be of varying length)
+    sampling_rate = the hz of the input ECG signal
+    show = whether to show the rpeak detection plots
+    """
     feature_names = ['ECG_HR_median', 'ECG_HR_IQR', 'ECG_HR_slope', 'ECG_SDNN', 'ECG_RMSSD', 
                         'ECG_VLF', 'ECG_LF', 'ECG_HF', 'ECG_LF_norm', 'ECG_HF_norm', 'ECG_LF_HF_ratio', 
                         'ECG_sample_entropy', 'ECG_approx_entropy']

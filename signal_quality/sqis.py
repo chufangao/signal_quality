@@ -11,6 +11,9 @@ def sqi_template_matching_correlation(ecg_window, sampling_rate, show=False):
     "Signal quality indices for the electrocardiogram and photoplethysmogram: Derivation and applications to wireless monitoring", 
     IEEE J. Biomed. Health Informat., vol. 19, no. 3, pp. 832-838, May 2015.
 
+    ecg_window = input ECG as a 1d numpy array
+    sampling_rate = the hz of the input ECG signal
+    show = a boolean value whether to show the obtained peaks
     """
 
     
