@@ -14,6 +14,9 @@ def sqi_template_matching_correlation(ecg_window, sampling_rate, show=False):
     ecg_window = input ECG as a 1d numpy array
     sampling_rate = the hz of the input ECG signal
     show = a boolean value whether to show the obtained peaks
+
+    returns average correlation coefficient (scipy.stats.pearsonr)
+        that range from -1 to 1
     """
 
     
@@ -24,6 +27,9 @@ def sqi_template_matching_correlation(ecg_window, sampling_rate, show=False):
     nni = pyhrv.tools.nn_intervals(rpeaks=out['rpeaks'])
     # nni is in ms, convert to s
     nni = nni / 1000
+
+    # obtain median rr interval
+    median_qrs_window = np.median(out['rpeaks'][1:] - out['rpeaks'][:-1]).astype(int)
 
     # check heart rate in reasonable range of [40,180]
     if np.any(out['heart_rate'] < 40) or np.any(180 < out['heart_rate']):
@@ -37,15 +43,18 @@ def sqi_template_matching_correlation(ecg_window, sampling_rate, show=False):
     if (np.max(nni) / np.min(nni)) > 2.2:
         return 1
 
-    average_template = np.mean(out['templates'], axis=0)
+    templates = np.array([
+        ecg_window[r_peak-median_qrs_window//2:r_peak+median_qrs_window//2] 
+        for r_peak in out['rpeaks']
+        if (r_peak-median_qrs_window//2 >= 0) and (r_peak+median_qrs_window//2 < len(ecg_window))
+    ])
+    
+    average_template = np.mean(templates, axis=0)
 
     # scipy.stats.pearsonr returns r, p_value
     corrcoefs = [
-        scipy.stats.pearsonr(x=out['templates'][i], y=average_template)[0]
-        for i in range(len(out['templates']))
+        scipy.stats.pearsonr(x=templates[i], y=average_template)[0]
+        for i in range(len(templates))
         ]
 
-    if np.mean(corrcoefs) < 0.66:
-        return 1
-    else:
-        return 0
+    return np.mean(corrcoefs)

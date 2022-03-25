@@ -5,7 +5,8 @@ import biosppy
 import scipy
 from tqdm import tqdm
 
-def load_ecg_by_windows(channel, rates, sampling_rate, noise_threshold, downsampled_sampling_rate=125, window_size=60*125, step=30*125):
+def load_ecg_by_windows(channel, rates, sampling_rate, noise_threshold, 
+    downsampled_sampling_rate=125, window_size=60*125, step=30*125):
     """
     channel = the entire raw ECG waveform of shape (length,)
     rates = the processed (numeric) annotations of same shape as ECG (length,)
@@ -36,7 +37,7 @@ def load_ecg_by_windows(channel, rates, sampling_rate, noise_threshold, downsamp
             if (window_labels==-1.0).sum() == len(window_labels):
                 continue
 
-            print((window_labels==1.0).sum() / len(window_labels))
+            # print((window_labels==1.0).sum() / len(window_labels))
             if ((window_labels==1.0).sum() / len(window_labels)) > noise_threshold:
                 catval = 1
             else:
@@ -57,7 +58,8 @@ def load_ecg_by_windows(channel, rates, sampling_rate, noise_threshold, downsamp
     # return data and labels
     return beats, labels
 
-def load_ecg_beat_by_beat(channel, rates, sampling_rate, downsampled_sampling_rate=125, beat_window=90, show=False):
+def load_ecg_beat_by_beat(channel, rates, sampling_rate, 
+    downsampled_sampling_rate=125, beat_window=90, show=False):
     """
     channel = the entire raw ECG waveform of shape (length,)
     rates = the processed (numeric) annotations of same shape as ECG (length,)
@@ -122,7 +124,7 @@ def load_ecg_beat_by_beat(channel, rates, sampling_rate, downsampled_sampling_ra
     return beats, labels
 
 
-def load_mit_bih(data_path='/zfsauton/project/public/chufang/MIT-BIH/', load_method='beat_by_beat'):
+def load_mit_bih(data_path='/zfsauton/project/public/chufang/MIT-BIH/', load_method='beat_by_beat', verbose=False):
     """ 
     https://physionet.org/content/mitdb/1.0.0/
 
@@ -161,10 +163,11 @@ def load_mit_bih(data_path='/zfsauton/project/public/chufang/MIT-BIH/', load_met
         record = wfdb.rdrecord(data_path+subject)
         annotation = wfdb.rdann(data_path+subject, 'atr')
 
-        # Print some meta informations
-        print('Sampling frequency used for this record:', record.fs)
-        print('Shape of loaded data array:', record.p_signal.shape)
-        print('Number of loaded annotations:', len(annotation.num))
+        if verbose:
+            # Print some meta informations
+            print('Sampling frequency used for this record:', record.fs)
+            print('Shape of loaded data array:', record.p_signal.shape)
+            print('Number of loaded annotations:', len(annotation.num))
         
         # Get the ECG values from the file.
         data = record.p_signal.transpose()
@@ -185,7 +188,9 @@ def load_mit_bih(data_path='/zfsauton/project/public/chufang/MIT-BIH/', load_met
         # Process each channel separately (2 per input file).
         for channelid, channel in enumerate(data):
             chname = record.sig_name[channelid]
-            print('ECG channel type:', chname)
+            
+            if verbose:
+                print('ECG channel type:', chname)
             
             if load_method=='beat_by_beat':
                 data, labels = load_ecg_beat_by_beat(channel=channel, rates=rates, sampling_rate=record.fs,
