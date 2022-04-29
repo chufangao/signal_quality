@@ -188,7 +188,7 @@ def load_mit_bih(data_path='/zfsauton/project/public/chufang/MIT-BIH/', load_met
         # Process each channel separately (2 per input file).
         for channelid, channel in enumerate(data):
             chname = record.sig_name[channelid]
-            
+             
             if verbose:
                 print('ECG channel type:', chname)
             
@@ -207,7 +207,7 @@ def load_mit_bih(data_path='/zfsauton/project/public/chufang/MIT-BIH/', load_met
     
     return output_dict
 
-def load_picc(data_path='/zfsauton/project/public/chufang/PICC/', load_method='windows'):
+def load_picc(data_path='/zfsauton/project/public/chufang/PICC/', verbose=True):
     """ 
     https://physionet.org/content/challenge-2011/1.0.0/
 
@@ -219,44 +219,39 @@ def load_picc(data_path='/zfsauton/project/public/chufang/PICC/', load_method='w
         
     # np.warnings.filterwarnings('error', category=np.VisibleDeprecationWarning)                  
 
+    data_path='/zfsauton/project/public/chufang/PICC/'
     normal_subjects = open(data_path+'set-a/RECORDS-acceptable', 'r').readlines()
     normal_subjects = [subj.replace('\n','') for subj in normal_subjects]
     labels = [0.0 for _ in range(len(normal_subjects))]
 
     abnormal_subjects = open(data_path+'set-a/RECORDS-unacceptable', 'r').readlines()
     abnormal_subjects = [subj.replace('\n','') for subj in abnormal_subjects]
-    labels = labels + [0.0 for _ in range(len(normal_subjects))]
-    
+    labels = labels + [1.0 for _ in range(len(abnormal_subjects))]
+
     output_dict = {}
     for subject, label in tqdm(zip(normal_subjects + abnormal_subjects, labels)):
         output_dict[subject] = {}
 
         # Read in the data
-        record = wfdb.rdrecord(data_path+subject)
+        record = wfdb.rdrecord(data_path+'set-a/'+subject)
 
         # Print some meta informations
-        print('Sampling frequency used for this record:', record.fs)
-        print('Shape of loaded data array:', record.p_signal.shape)
+        if verbose:
+            print('Sampling frequency used for this record:', record.fs)
+            print('Shape of loaded data array:', record.p_signal.shape)
         
         # Get the ECG values from the file.
         data = record.p_signal.transpose()
         
-        # Process each channel separately (2 per input file).
+        # Process each channel separately (12 per input file).
         for channelid, channel in enumerate(data):
-            chname = record.sig_name[channelid]
-            print('ECG channel type:', chname)
-            
-            if load_method=='beat_by_beat':
-                data, _ = load_ecg_beat_by_beat(channel=channel, rates=None, sampling_rate=record.fs,
-                                                     downsampled_sampling_rate=125, beat_window=90, show=False)
-            elif load_method=='windows':
-                data, _ = load_ecg_by_windows(channel=channel, rates=None, sampling_rate=record.fs, noise_threshold=0.001,
-                                                   downsampled_sampling_rate=125, window_size=5*60*125, step=30*125)
-                # data, feature_names = ecg_featurization.featurize_windows(windows=data, sampling_rate=125)
-            else:
-                raise NotImplementedError
+            newsize = int((len(channel) * 125 / record.fs) + 0.5)
+            channel = scipy.signal.resample(channel, newsize)
 
-            output_dict[subject][chname] = {'data':data, 'labels':[label for _ in range(len(data))]}
+            chname = record.sig_name[channelid]
+            if verbose:
+                print('ECG channel type:', chname)
+            output_dict[subject][chname] = {'data':channel, 'labels':[label]}
             # savedata = np.array(list(beats[:]), dtype=np.float)
     
     return output_dict
