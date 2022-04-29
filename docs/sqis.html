@@ -1,0 +1,1426 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>signal_quality.sqis API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>signal_quality.sqis</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import numpy as np
+import biosppy
+import pyhrv
+import matplotlib.pyplot as plt
+import scipy.stats
+import neurokit2 as nk
+import antropy
+import sklearn
+
+### ===================================================== Relevant ECG Features =====================================================
+
+def orphanidou2015_sqi(ecg_cleaned, sampling_rate, show=False):
+    &#34;&#34;&#34;C. Orphanidou, T. Bonnici, P. Charlton, D. Clifton, D. Vallance and L. Tarassenko, 
+    &#34;Signal quality indices for the electrocardiogram and photoplethysmogram: Derivation and applications to wireless monitoring&#34;, 
+    IEEE J. Biomed. Health Informat., vol. 19, no. 3, pp. 832-838, May 2015.
+
+    ecg_window : np.array
+        The input ECG
+    sampling_rate : int
+        The hz of the input ECG signal
+    show : bool
+         Flag whether to show the obtained peaks
+
+    returns average correlation coefficient (scipy.stats.pearsonr)
+        that range from -1 to 1
+    &#34;&#34;&#34;
+    
+    try:
+        ## out = (&#39;ts&#39;, &#39;filtered&#39;, &#39;rpeaks&#39;, &#39;templates_ts&#39;, &#39;templates&#39;, &#39;heart_rate_ts&#39;, &#39;heart_rate&#39;)
+        out = biosppy.signals.ecg.ecg(signal=ecg_cleaned, sampling_rate=sampling_rate, show=show)
+    except Exception as e:
+        return np.nan
+
+    nni = pyhrv.tools.nn_intervals(rpeaks=out[&#39;rpeaks&#39;])
+    ## nni is in ms, convert to s
+    nni = nni / 1000
+
+    ## obtain median rr interval
+    median_qrs_window = np.median(out[&#39;rpeaks&#39;][1:] - out[&#39;rpeaks&#39;][:-1]).astype(int)
+
+    ## check heart rate in reasonable range of [40,180]
+    if np.any(out[&#39;heart_rate&#39;] &lt; 40) or np.any(180 &lt; out[&#39;heart_rate&#39;]):
+        return 1
+
+    ## if all nni are less than 3 seconds
+    if np.any(nni &gt; 3):
+        return 1
+
+    ## check max_rr_interval / min_rr_interval &lt; 2.2
+    if (np.max(nni) / np.min(nni)) &gt; 2.2:
+        return 1
+
+    templates = np.array([
+        ecg_cleaned[r_peak-median_qrs_window//2:r_peak+median_qrs_window//2] 
+        for r_peak in out[&#39;rpeaks&#39;]
+        if (r_peak-median_qrs_window//2 &gt;= 0) and (r_peak+median_qrs_window//2 &lt; len(ecg_cleaned))
+    ])
+    
+    average_template = np.mean(templates, axis=0)
+
+    ## scipy.stats.pearsonr returns r, p_value
+    corrcoefs = [
+        scipy.stats.pearsonr(x=templates[i], y=average_template)[0]
+        for i in range(len(templates))
+        ]
+
+    return np.mean(corrcoefs)
+
+def averageQRS_SQI(ecg_cleaned, sampling_rate):
+    &#34;&#34;&#34;computes a continuous index of quality of the ECG signal, by interpolating the distance
+    of each QRS segment from the average QRS segment present in the data. This index is
+    therefore relative: 1 corresponds to heartbeats that are the closest to the average
+    sample and 0 corresponds to the most distant heartbeat from that average sample. Note that 1 does not necessarily means
+    &#34;good&#34;: if the majority of samples are bad, than being close to the average will likely mean bad as well. Use this index
+    with care and plot it alongside your ECG signal to see if it makes sense.
+
+    ecg_cleaned : np.array
+        The cleaned ECG signal in the form of a vector of values.
+    sampling_rate : int
+        The sampling frequency of the signal (in Hz, i.e., samples/second).
+
+    Source: https://github.com/neuropsychology/NeuroKit/blob/master/neurokit2/ecg/ecg_quality.py
+    &#34;&#34;&#34;
+    try:
+        rating = nk.ecg_quality(ecg_cleaned=ecg_cleaned, rpeaks=None, sampling_rate=sampling_rate, method=&#34;averageQRS&#34;)
+
+        if rating == &#34;Excellent&#34;:
+            return 2
+        elif rating == &#34;Unnacceptable&#34;:
+            return 0
+        else:
+            return 1
+
+    except Exception as e:
+        # print(e)
+        return np.nan
+
+def zhao2018_SQI(ecg_cleaned, sampling_rate):
+    &#34;&#34;&#34;extracts several signal quality indexes (SQIs):
+    QRS wave power spectrum distribution pSQI, kurtosis kSQI, and baseline relative power basSQI.
+    An additional R peak detection match qSQI was originally computed in the paper but left out
+    in this algorithm. The indices were originally weighted with a ratio of [0.4, 0.4, 0.1, 0.1] to
+    generate the final classification outcome, but because qSQI was dropped,
+    the weights have been rearranged to [0.6, 0.2, 0.2] for pSQI, kSQI and basSQI respectively
+
+    ecg_cleaned : np.array
+        The cleaned ECG signal in the form of a vector of values.
+    sampling_rate : int
+        The sampling frequency of the signal (in Hz, i.e., samples/second).
+
+    Source: https://github.com/neuropsychology/NeuroKit/blob/master/neurokit2/ecg/ecg_quality.py
+    &#34;&#34;&#34;
+    try:
+        rating = nk.ecg_quality(ecg_cleaned=ecg_cleaned, rpeaks=None, sampling_rate=sampling_rate, method=&#34;zhao2018&#34;, approach=&#39;fuzzy&#39;)
+        if rating == &#34;Excellent&#34;:
+            return 2
+        elif rating == &#34;Unnacceptable&#34;:
+            return 0
+        else:
+            return 1
+    except Exception as e:
+        # print(e)
+        return np.nan
+
+
+def p_SQI(ecg_cleaned, sampling_rate, window, num_spectrum=[5, 15], dem_spectrum=[5, 40]):
+    &#34;&#34;&#34;Power Spectrum Distribution of QRS Wave.
+    ecg_cleaned : np.array
+        The cleaned ECG signal in the form of a vector of values.
+    sampling_rate : int
+        The sampling frequency of the signal (in Hz, i.e., samples/second).
+    window : int
+        Length of each window in seconds. See `signal_psd()`.
+
+    Source: https://github.com/neuropsychology/NeuroKit/blob/master/neurokit2/ecg/ecg_quality.py
+    &#34;&#34;&#34;
+    try:
+        psd = nk.signal_power(
+            ecg_cleaned,
+            sampling_rate=sampling_rate,
+            frequency_band=[num_spectrum, dem_spectrum],
+            method=&#34;welch&#34;,
+            normalize=False,
+            window=window
+            )
+
+        num_power = psd.iloc[0][0]
+        dem_power = psd.iloc[0][1]
+
+        return num_power / dem_power
+    except Exception as e:
+        return np.nan
+
+def bas_SQI(ecg_cleaned, sampling_rate, window, num_spectrum=[0, 1], dem_spectrum=[0, 40]):
+    &#34;&#34;&#34;Relative Power in the Baseline.
+    ecg_cleaned : np.array
+        The cleaned ECG signal in the form of a vector of values.
+    sampling_rate : int
+        The sampling frequency of the signal (in Hz, i.e., samples/second).
+    window : int
+        Length of each window in seconds. See `signal_psd()`.
+
+    Source: https://github.com/neuropsychology/NeuroKit/blob/master/neurokit2/ecg/ecg_quality.py
+    &#34;&#34;&#34;
+
+    try:
+        psd = nk.signal_power(
+            ecg_cleaned,
+            sampling_rate=sampling_rate,
+            frequency_band=[num_spectrum, dem_spectrum],
+            method=&#34;welch&#34;,
+            normalize=False,
+            window=window
+            )
+
+        num_power = psd.iloc[0][0]
+        dem_power = psd.iloc[0][1]
+
+        return 1 - num_power / dem_power
+    except Exception as e:
+        return np.nan
+
+def c_SQI(ecg_cleaned, sampling_rate):
+    &#34;&#34;&#34;Variability in the R-R Interval
+    When an artifact is present, the QRS detector underperforms by either
+    missing R-peaks or erroneously identifying noisy peaks as R- peaks. The
+    above two problems will lead to a high degree of variability in the
+    distribution of R-R intervals;
+    Parameters
+
+    ecg_cleaned : np.array
+        Input ECG signal
+    sampling_frequency : int
+        Input ecg sampling frequency
+
+    Source: https://github.com/Aura-healthcare/ecg_qc/blob/main/ecg_qc/sqi_computing/sqi_rr_intervals.py
+    &#34;&#34;&#34;
+    try:
+        rri_list = biosppy.signals.ecg.hamilton_segmenter(signal=ecg_cleaned, sampling_rate=sampling_rate)[0]
+        c_sqi_score = np.std(rri_list, ddof=1) / np.mean(rri_list)
+
+    except Exception:
+        c_sqi_score = np.nan
+
+    return c_sqi_score
+
+def q_sqi(ecg_cleaned, sampling_rate, matching_qrs_frames_tolerance=50):
+    &#34;&#34;&#34;Matching Degree of R Peak Detection
+    Two R wave detection algorithms are compared with their respective number
+    of R waves detected.
+    * Hamilton
+    * SWT (Stationary Wavelet Transform)
+    Parameters
+    ----------
+    ecg_signal : list
+        Input ECG signal
+    sampling_frequency : list
+        Input ecg sampling frequency
+
+    Source: https://github.com/Aura-healthcare/ecg_qc/blob/main/ecg_qc/sqi_computing/sqi_rr_intervals.py
+    &#34;&#34;&#34;
+
+    ## returns signals: df, info: dict of {&#39;ECG_R_Peaks&#39;, &#39;sampling_rate&#39;}
+    qrs_frames_1 = nk.ecg_peaks(ecg_cleaned, sampling_rate=125, method=&#39;hamilton2002&#39;)[1][&#39;ECG_R_Peaks&#39;]
+    qrs_frames_2 = nk.ecg_peaks(ecg_cleaned, sampling_rate=125, method=&#39;kalidas2017&#39;)[1][&#39;ECG_R_Peaks&#39;]
+    
+    # compute_qrs_frames_correlation
+    single_frame_duration = 1/sampling_rate
+
+    frame_tolerance = matching_qrs_frames_tolerance * (0.001 / single_frame_duration)
+
+    # Catch complete failed QRS detection
+    if (len(qrs_frames_1) == 0 or len(qrs_frames_2) == 0):
+        return 0
+
+    i = 0
+    j = 0
+    matching_frames = 0
+
+    while i &lt; len(qrs_frames_1) and j &lt; len(qrs_frames_2):
+        min_qrs_frame = min(qrs_frames_1[i], qrs_frames_2[j])
+        # Get missing detected beats intervals
+        # Matching frames
+        if abs(qrs_frames_2[j] - qrs_frames_1[i]) &lt; frame_tolerance:
+            matching_frames += 1
+            i += 1
+            j += 1
+        else:
+            # increment first QRS in frame list
+            if min_qrs_frame == qrs_frames_1[i]:
+                i += 1
+            else:
+                j += 1
+
+    correlation_coefs = 2 * matching_frames / (len(qrs_frames_1) + len(qrs_frames_2))
+
+    return correlation_coefs
+
+def bs_sqi(ecg_cleaned, peaks, sampling_rate):
+    &#34;&#34;&#34;&#34;SQI for baseline wander check in time domain
+    the higher the wander, the lower the bs_sqi.
+
+    Source: Li, Qiao, Cadathur Rajagopalan, and Gari D. Clifford. 
+    &#34;A machine learning approach to multi-level ECG signal quality classification.&#34; 
+    Computer methods and programs in biomedicine 117.3 (2014): 435-447. 
+    &#34;&#34;&#34;
+
+    # peaks = nk.ecg_peaks(ecg_cleaned, sampling_rate=sampling_rate, method=&#39;kalidas2017&#39;)[1][&#39;ECG_R_Peaks&#39;]
+    filtered = nk.signal_filter(signal=ecg_cleaned, sampling_rate=sampling_rate, highcut=1, method=&#39;butterworth&#39;)
+    
+    total = []
+    
+    for peak in peaks:
+        # Ra is peak to peak amplitude of ECG signal from (R-0.07s, R+0.08s)
+        window = ecg_cleaned[max(int(peak-0.07*sampling_rate), 0) : min(int(peak+0.08*sampling_rate), len(ecg_cleaned))]
+        Ra = np.max(window) - np.min(window)
+
+        # Ba is peak to peak amplitude of baseline (1hz lowpass filter) from (R-1s, R+1s)
+        window = filtered[max(int(peak-1*sampling_rate), 0) : min(int(peak+1*sampling_rate), len(ecg_cleaned))]
+        Ba = np.max(window) - np.min(window)
+
+        total.append(Ra / Ba)
+    
+    total = np.nanmean(total)
+    return total
+
+def e_sqi(ecg_cleaned, peaks, sampling_rate):
+    &#34;&#34;&#34; returns the relative energy of the signal
+    i.e. sum of energy of detected QRS over energy of entire signal
+
+    Source: Li, Qiao, Cadathur Rajagopalan, and Gari D. Clifford. 
+    &#34;A machine learning approach to multi-level ECG signal quality classification.&#34; 
+    Computer methods and programs in biomedicine 117.3 (2014): 435-447. 
+    &#34;&#34;&#34;
+    total = 0
+    
+    for peak in peaks:
+        # Ra is peak to peak amplitude of ECG signal from (R-0.07s, R+0.08s)
+        window = ecg_cleaned[max(int(peak-0.07*sampling_rate), 0) : min(int(peak+0.08*sampling_rate), len(ecg_cleaned))]    
+        # energy of QRS
+        total += np.dot(window, window)
+
+    return total / np.dot(ecg_cleaned, ecg_cleaned)
+
+def hf_sqi(ecg_raw, peaks, sampling_rate):
+    &#34;&#34;&#34; the relative amplitude of high frequency noise
+    &#34;&#34;&#34;
+    if len(ecg_raw) &lt; 6: return np.nan
+
+    ## integer coefficients high pass filter y(j) = x(j) − 2x(j − 1) + x(j − 2)
+    y = ecg_raw[:-2] - 2*ecg_raw[1:-1] + ecg_raw[2:]
+    s = y[:-5] + y[1:-4] + y[2:-3] + y[3:-2] + y[4:-1] + y[5:]
+    
+    total = []
+    for peak in peaks:
+        # Ra is peak to peak amplitude of ECG signal from (R-0.07s, R+0.08s)
+        window = ecg_raw[max(int(peak-0.07*sampling_rate), 0) : min(int(peak+0.08*sampling_rate), len(ecg_raw))]    
+        # energy of QRS
+
+        Ra = np.max(window) - np.min(window)
+
+        window = s[max(int(peak-0.28*sampling_rate), 0) : min(int(peak-0.05*sampling_rate), len(s))]
+        H = np.nanmean(window)
+
+        total.append(Ra / H)
+    return np.nanmean(total)
+
+def rsd_sqi(ecg_cleaned, peaks, sampling_rate):
+    &#34;&#34;&#34; the relative standard deviation
+    &#34;&#34;&#34;
+    
+    total = []
+    for peak in peaks:
+        # Ra is peak to peak amplitude of ECG signal from (R-0.07s, R+0.08s)
+        window = ecg_cleaned[max(int(peak-0.07*sampling_rate), 0) : min(int(peak+0.08*sampling_rate), len(ecg_cleaned))]    
+        # energy of QRS
+        sigma_r = np.nanstd(window)
+
+        window = ecg_cleaned[max(int(peak-0.2*sampling_rate), 0) : min(int(peak+0.2*sampling_rate), len(ecg_cleaned))]
+        sigma_a = np.nanstd(window)
+        
+        total.append(sigma_r / (sigma_a*2))
+    return np.nanmean(total)
+
+def get_ecg_sqis(ecg_raw, ecg_cleaned, peaks, sampling_rate, window):
+    &#34;&#34;&#34; returns all ecg features
+    &#34;&#34;&#34;
+    # ecg_cleaned = nk.ecg_clean(ecg_raw, sampling_rate=sampling_rate, method=&#34;neurokit&#34;)
+    # peaks = nk.ecg_peaks(ecg_cleaned, sampling_rate=sampling_rate, method=&#39;kalidas2017&#39;)[1][&#39;ECG_R_Peaks&#39;]
+
+    ecg_sqis = [
+        orphanidou2015_sqi(ecg_cleaned, sampling_rate, show=False),
+        averageQRS_SQI(ecg_cleaned, sampling_rate),
+        zhao2018_SQI(ecg_cleaned, sampling_rate),
+        p_SQI(ecg_cleaned, sampling_rate, window, num_spectrum=[5, 15], dem_spectrum=[5, 40]),
+        bas_SQI(ecg_cleaned, sampling_rate, window, num_spectrum=[0, 1], dem_spectrum=[0, 40]),
+        c_SQI(ecg_cleaned, sampling_rate),
+        q_sqi(ecg_cleaned, sampling_rate, matching_qrs_frames_tolerance=50),
+        bs_sqi(ecg_cleaned, peaks, sampling_rate),
+        e_sqi(ecg_cleaned, peaks, sampling_rate),
+        hf_sqi(ecg_raw, peaks, sampling_rate),
+        rsd_sqi(ecg_cleaned, peaks, sampling_rate),
+    ]
+
+    generic_sqis = get_generic_sqis(signal=ecg_raw)
+    return ecg_sqis + generic_sqis
+
+### ===================================================== Relevant Pleth Features =====================================================
+
+def perfusion_sqi(pleth_raw, pleth_cleaned):
+    &#34;&#34;&#34;returns perfusion of pleth
+    The perfusion index is the ratio of the pulsatile blood flow to the nonpulsatile 
+    or static blood in peripheral tissue. In other words, it is the difference of the 
+    amount of light absorbed through the pulse of when light is transmitted through 
+    the finger AC/DC * 100
+    &#34;&#34;&#34;
+    try:
+        return (np.nanmax(pleth_cleaned) - np.nanmin(pleth_cleaned)) / np.nanmean(pleth_raw) * 100
+    except Exception as e:
+        return np.nan    
+
+def get_pleth_sqis(pleth_raw, pleth_cleaned):
+    &#34;&#34;&#34; returns all pleth sqis
+    &#34;&#34;&#34;
+    # pleth_cleaned = nk.ppg_clean(ppg_signal=pleth_raw, sampling_rate=sampling_rate, method=&#39;elgendi&#39;)
+    pleth_sqis = [
+        perfusion_sqi(pleth_raw, pleth_cleaned),
+    ]
+
+    generic_sqis = get_generic_sqis(signal=pleth_raw)
+    return pleth_sqis + generic_sqis
+
+### ===================================================== Relevant General Time Series Features =====================================================
+
+def k_SQI(signal, kurtosis_method=&#39;fisher&#39;):
+    &#34;&#34;&#34;Return the kurtosis of the signal, with Fisher&#39;s or Pearson&#39;s method.
+    signal : np.array
+    kurtosis_method : str
+        Compute kurtosis (kSQI) based on &#34;fisher&#34; (default) or &#34;pearson&#34; definition.
+
+    Source: https://github.com/neuropsychology/NeuroKit/blob/master/neurokit2/ecg/ecg_quality.py
+    &#34;&#34;&#34;
+    if kurtosis_method == &#34;fisher&#34;:
+        return scipy.stats.kurtosis(signal, fisher=True)
+    elif kurtosis_method == &#34;pearson&#34;:
+        return scipy.stats.kurtosis(signal, fisher=False)
+
+def s_SQI(signal):
+    &#34;&#34;&#34;Return the skewnss of the signal
+    signal : np.array
+    &#34;&#34;&#34;
+    return scipy.stats.skew(signal)
+
+def pur_sqi(signal):
+    &#34;&#34;&#34;&#34; returns the signal purity of the input
+    In the case of a periodic signal with a single dominant frequency, 
+    it takes the value of one and approaches zero for non-sinusoidal noisy signals.
+    antropy.hjorth_params returns 2 floats: mobility, complexity
+    Complexity is the value we want
+    &#34;&#34;&#34;
+    return antropy.hjorth_params(signal)[1]
+
+def ent_sqi(signal):
+    &#34;&#34;&#34;&#34; returns the sample entropy
+    &#34;&#34;&#34;
+    return antropy.sample_entropy(signal)
+
+def pca_sqi(signal):
+    # todo: Currently, we are only using single channel (1d) swis
+    pca = sklearn.decomposition.PCA(n_components=2)
+    pca.fit(signal)
+
+    return np.sum(pca.singular_values_[:5]) / np.sum(pca.singular_values_)
+
+def autocorr_sqi(signal, lag):
+    &#34;&#34;&#34;Calculates the autocorrelation of the specified lag, according to the formula [1]
+    [1] https://en.wikipedia.org/wiki/Autocorrelation#Estimation
+
+    source: https://tsfresh.readthedocs.io/en/latest/_modules/tsfresh/feature_extraction/feature_calculators.html#autocorrelation
+    &#34;&#34;&#34;
+    # This is important: If a series is passed, the product below is calculated
+    # based on the index, which corresponds to squaring the series.
+
+    if len(signal) &lt; lag:
+        return np.nan
+    # Slice the relevant subseries based on the lag
+    y1 = signal[: (len(signal) - lag)]
+    y2 = signal[lag:]
+    # Subtract the mean of the whole series x
+    x_mean = np.mean(signal)
+    # The result is sometimes referred to as &#34;covariation&#34;
+    sum_product = np.sum((y1 - x_mean) * (y2 - x_mean))
+    # Return the normalized unbiased covariance
+    v = np.var(signal)
+    if np.isclose(v, 0):
+        return np.nan
+    else:
+        return sum_product / ((len(signal) - lag) * v)
+
+def zc_sqi(signal):
+    &#34;&#34;&#34;zero cross rate
+    &#34;&#34;&#34;
+    return antropy.num_zerocross(signal)
+
+def snr_sqi(signal_raw, signal_cleaned):
+    &#34;&#34;&#34;there are many ways to define SNR, here we use std of filtered vs std of raw
+    &#34;&#34;&#34;
+    return np.std(np.abs(signal_cleaned)) / np.std(np.abs(signal_raw))
+
+def f_sqi(signal, window_size=3, threshold=1e-7):
+    &#34;&#34;&#34;Detect constant values over a longer period (flat line).
+    Commonly caused by sensor failures, which get stuck at a constant level.
+    returns percentage of signal that is flat line
+
+    Source: https://github.com/DHI/tsod/blob/main/tsod/detectors.py
+    &#34;&#34;&#34;
+    if window_size &gt;= len(signal): return 0
+
+    rolling = np.lib.stride_tricks.sliding_window_view(signal, window_shape=window_size)
+    rollmax = np.nanmax(rolling, axis=1)
+    rollmin = np.nanmin(rolling, axis=1)
+    
+    anomalies = rollmax - rollmin &lt; threshold
+    anomalies[0] = False  # first element cannot be determined
+    anomalies[-1] = False
+
+    idx = np.where(anomalies)[0]
+    if idx is not None:
+        # assuming window size = 3
+        # remove also points before and after each detected anomaly
+        anomalies[idx[idx &gt; 0] - 1] = True
+        maxidx = len(anomalies) - 1
+        anomalies[idx[idx &lt; maxidx] + 1] = True
+
+    return np.sum(anomalies) / len(anomalies)
+
+def get_generic_sqis(signal):
+    return [
+        k_SQI(signal, kurtosis_method=&#39;fisher&#39;),
+        s_SQI(signal),
+        pur_sqi(signal),
+        ent_sqi(signal),
+        zc_sqi(signal),
+        f_sqi(signal, window_size=3, threshold=1e-7),
+        np.nanmean(signal),
+        np.nanstd(signal),
+        np.nanmax(signal),
+        np.nanmin(signal)
+    ]</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="signal_quality.sqis.autocorr_sqi"><code class="name flex">
+<span>def <span class="ident">autocorr_sqi</span></span>(<span>signal, lag)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Calculates the autocorrelation of the specified lag, according to the formula [1]
+[1] <a href="https://en.wikipedia.org/wiki/Autocorrelation#Estimation">https://en.wikipedia.org/wiki/Autocorrelation#Estimation</a></p>
+<p>source: <a href="https://tsfresh.readthedocs.io/en/latest/_modules/tsfresh/feature_extraction/feature_calculators.html#autocorrelation">https://tsfresh.readthedocs.io/en/latest/_modules/tsfresh/feature_extraction/feature_calculators.html#autocorrelation</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def autocorr_sqi(signal, lag):
+    &#34;&#34;&#34;Calculates the autocorrelation of the specified lag, according to the formula [1]
+    [1] https://en.wikipedia.org/wiki/Autocorrelation#Estimation
+
+    source: https://tsfresh.readthedocs.io/en/latest/_modules/tsfresh/feature_extraction/feature_calculators.html#autocorrelation
+    &#34;&#34;&#34;
+    # This is important: If a series is passed, the product below is calculated
+    # based on the index, which corresponds to squaring the series.
+
+    if len(signal) &lt; lag:
+        return np.nan
+    # Slice the relevant subseries based on the lag
+    y1 = signal[: (len(signal) - lag)]
+    y2 = signal[lag:]
+    # Subtract the mean of the whole series x
+    x_mean = np.mean(signal)
+    # The result is sometimes referred to as &#34;covariation&#34;
+    sum_product = np.sum((y1 - x_mean) * (y2 - x_mean))
+    # Return the normalized unbiased covariance
+    v = np.var(signal)
+    if np.isclose(v, 0):
+        return np.nan
+    else:
+        return sum_product / ((len(signal) - lag) * v)</code></pre>
+</details>
+</dd>
+<dt id="signal_quality.sqis.averageQRS_SQI"><code class="name flex">
+<span>def <span class="ident">averageQRS_SQI</span></span>(<span>ecg_cleaned, sampling_rate)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>computes a continuous index of quality of the ECG signal, by interpolating the distance
+of each QRS segment from the average QRS segment present in the data. This index is
+therefore relative: 1 corresponds to heartbeats that are the closest to the average
+sample and 0 corresponds to the most distant heartbeat from that average sample. Note that 1 does not necessarily means
+"good": if the majority of samples are bad, than being close to the average will likely mean bad as well. Use this index
+with care and plot it alongside your ECG signal to see if it makes sense.</p>
+<p>ecg_cleaned : np.array
+The cleaned ECG signal in the form of a vector of values.
+sampling_rate : int
+The sampling frequency of the signal (in Hz, i.e., samples/second).</p>
+<p>Source: <a href="https://github.com/neuropsychology/NeuroKit/blob/master/neurokit2/ecg/ecg_quality.py">https://github.com/neuropsychology/NeuroKit/blob/master/neurokit2/ecg/ecg_quality.py</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def averageQRS_SQI(ecg_cleaned, sampling_rate):
+    &#34;&#34;&#34;computes a continuous index of quality of the ECG signal, by interpolating the distance
+    of each QRS segment from the average QRS segment present in the data. This index is
+    therefore relative: 1 corresponds to heartbeats that are the closest to the average
+    sample and 0 corresponds to the most distant heartbeat from that average sample. Note that 1 does not necessarily means
+    &#34;good&#34;: if the majority of samples are bad, than being close to the average will likely mean bad as well. Use this index
+    with care and plot it alongside your ECG signal to see if it makes sense.
+
+    ecg_cleaned : np.array
+        The cleaned ECG signal in the form of a vector of values.
+    sampling_rate : int
+        The sampling frequency of the signal (in Hz, i.e., samples/second).
+
+    Source: https://github.com/neuropsychology/NeuroKit/blob/master/neurokit2/ecg/ecg_quality.py
+    &#34;&#34;&#34;
+    try:
+        rating = nk.ecg_quality(ecg_cleaned=ecg_cleaned, rpeaks=None, sampling_rate=sampling_rate, method=&#34;averageQRS&#34;)
+
+        if rating == &#34;Excellent&#34;:
+            return 2
+        elif rating == &#34;Unnacceptable&#34;:
+            return 0
+        else:
+            return 1
+
+    except Exception as e:
+        # print(e)
+        return np.nan</code></pre>
+</details>
+</dd>
+<dt id="signal_quality.sqis.bas_SQI"><code class="name flex">
+<span>def <span class="ident">bas_SQI</span></span>(<span>ecg_cleaned, sampling_rate, window, num_spectrum=[0, 1], dem_spectrum=[0, 40])</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Relative Power in the Baseline.
+ecg_cleaned : np.array
+The cleaned ECG signal in the form of a vector of values.
+sampling_rate : int
+The sampling frequency of the signal (in Hz, i.e., samples/second).
+window : int
+Length of each window in seconds. See <code>signal_psd()</code>.</p>
+<p>Source: <a href="https://github.com/neuropsychology/NeuroKit/blob/master/neurokit2/ecg/ecg_quality.py">https://github.com/neuropsychology/NeuroKit/blob/master/neurokit2/ecg/ecg_quality.py</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def bas_SQI(ecg_cleaned, sampling_rate, window, num_spectrum=[0, 1], dem_spectrum=[0, 40]):
+    &#34;&#34;&#34;Relative Power in the Baseline.
+    ecg_cleaned : np.array
+        The cleaned ECG signal in the form of a vector of values.
+    sampling_rate : int
+        The sampling frequency of the signal (in Hz, i.e., samples/second).
+    window : int
+        Length of each window in seconds. See `signal_psd()`.
+
+    Source: https://github.com/neuropsychology/NeuroKit/blob/master/neurokit2/ecg/ecg_quality.py
+    &#34;&#34;&#34;
+
+    try:
+        psd = nk.signal_power(
+            ecg_cleaned,
+            sampling_rate=sampling_rate,
+            frequency_band=[num_spectrum, dem_spectrum],
+            method=&#34;welch&#34;,
+            normalize=False,
+            window=window
+            )
+
+        num_power = psd.iloc[0][0]
+        dem_power = psd.iloc[0][1]
+
+        return 1 - num_power / dem_power
+    except Exception as e:
+        return np.nan</code></pre>
+</details>
+</dd>
+<dt id="signal_quality.sqis.bs_sqi"><code class="name flex">
+<span>def <span class="ident">bs_sqi</span></span>(<span>ecg_cleaned, peaks, sampling_rate)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>"SQI for baseline wander check in time domain
+the higher the wander, the lower the bs_sqi.</p>
+<p>Source: Li, Qiao, Cadathur Rajagopalan, and Gari D. Clifford.
+"A machine learning approach to multi-level ECG signal quality classification."
+Computer methods and programs in biomedicine 117.3 (2014): 435-447.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def bs_sqi(ecg_cleaned, peaks, sampling_rate):
+    &#34;&#34;&#34;&#34;SQI for baseline wander check in time domain
+    the higher the wander, the lower the bs_sqi.
+
+    Source: Li, Qiao, Cadathur Rajagopalan, and Gari D. Clifford. 
+    &#34;A machine learning approach to multi-level ECG signal quality classification.&#34; 
+    Computer methods and programs in biomedicine 117.3 (2014): 435-447. 
+    &#34;&#34;&#34;
+
+    # peaks = nk.ecg_peaks(ecg_cleaned, sampling_rate=sampling_rate, method=&#39;kalidas2017&#39;)[1][&#39;ECG_R_Peaks&#39;]
+    filtered = nk.signal_filter(signal=ecg_cleaned, sampling_rate=sampling_rate, highcut=1, method=&#39;butterworth&#39;)
+    
+    total = []
+    
+    for peak in peaks:
+        # Ra is peak to peak amplitude of ECG signal from (R-0.07s, R+0.08s)
+        window = ecg_cleaned[max(int(peak-0.07*sampling_rate), 0) : min(int(peak+0.08*sampling_rate), len(ecg_cleaned))]
+        Ra = np.max(window) - np.min(window)
+
+        # Ba is peak to peak amplitude of baseline (1hz lowpass filter) from (R-1s, R+1s)
+        window = filtered[max(int(peak-1*sampling_rate), 0) : min(int(peak+1*sampling_rate), len(ecg_cleaned))]
+        Ba = np.max(window) - np.min(window)
+
+        total.append(Ra / Ba)
+    
+    total = np.nanmean(total)
+    return total</code></pre>
+</details>
+</dd>
+<dt id="signal_quality.sqis.c_SQI"><code class="name flex">
+<span>def <span class="ident">c_SQI</span></span>(<span>ecg_cleaned, sampling_rate)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Variability in the R-R Interval
+When an artifact is present, the QRS detector underperforms by either
+missing R-peaks or erroneously identifying noisy peaks as R- peaks. The
+above two problems will lead to a high degree of variability in the
+distribution of R-R intervals;
+Parameters</p>
+<p>ecg_cleaned : np.array
+Input ECG signal
+sampling_frequency : int
+Input ecg sampling frequency</p>
+<p>Source: <a href="https://github.com/Aura-healthcare/ecg_qc/blob/main/ecg_qc/sqi_computing/sqi_rr_intervals.py">https://github.com/Aura-healthcare/ecg_qc/blob/main/ecg_qc/sqi_computing/sqi_rr_intervals.py</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def c_SQI(ecg_cleaned, sampling_rate):
+    &#34;&#34;&#34;Variability in the R-R Interval
+    When an artifact is present, the QRS detector underperforms by either
+    missing R-peaks or erroneously identifying noisy peaks as R- peaks. The
+    above two problems will lead to a high degree of variability in the
+    distribution of R-R intervals;
+    Parameters
+
+    ecg_cleaned : np.array
+        Input ECG signal
+    sampling_frequency : int
+        Input ecg sampling frequency
+
+    Source: https://github.com/Aura-healthcare/ecg_qc/blob/main/ecg_qc/sqi_computing/sqi_rr_intervals.py
+    &#34;&#34;&#34;
+    try:
+        rri_list = biosppy.signals.ecg.hamilton_segmenter(signal=ecg_cleaned, sampling_rate=sampling_rate)[0]
+        c_sqi_score = np.std(rri_list, ddof=1) / np.mean(rri_list)
+
+    except Exception:
+        c_sqi_score = np.nan
+
+    return c_sqi_score</code></pre>
+</details>
+</dd>
+<dt id="signal_quality.sqis.e_sqi"><code class="name flex">
+<span>def <span class="ident">e_sqi</span></span>(<span>ecg_cleaned, peaks, sampling_rate)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>returns the relative energy of the signal
+i.e. sum of energy of detected QRS over energy of entire signal</p>
+<p>Source: Li, Qiao, Cadathur Rajagopalan, and Gari D. Clifford.
+"A machine learning approach to multi-level ECG signal quality classification."
+Computer methods and programs in biomedicine 117.3 (2014): 435-447.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def e_sqi(ecg_cleaned, peaks, sampling_rate):
+    &#34;&#34;&#34; returns the relative energy of the signal
+    i.e. sum of energy of detected QRS over energy of entire signal
+
+    Source: Li, Qiao, Cadathur Rajagopalan, and Gari D. Clifford. 
+    &#34;A machine learning approach to multi-level ECG signal quality classification.&#34; 
+    Computer methods and programs in biomedicine 117.3 (2014): 435-447. 
+    &#34;&#34;&#34;
+    total = 0
+    
+    for peak in peaks:
+        # Ra is peak to peak amplitude of ECG signal from (R-0.07s, R+0.08s)
+        window = ecg_cleaned[max(int(peak-0.07*sampling_rate), 0) : min(int(peak+0.08*sampling_rate), len(ecg_cleaned))]    
+        # energy of QRS
+        total += np.dot(window, window)
+
+    return total / np.dot(ecg_cleaned, ecg_cleaned)</code></pre>
+</details>
+</dd>
+<dt id="signal_quality.sqis.ent_sqi"><code class="name flex">
+<span>def <span class="ident">ent_sqi</span></span>(<span>signal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>" returns the sample entropy</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def ent_sqi(signal):
+    &#34;&#34;&#34;&#34; returns the sample entropy
+    &#34;&#34;&#34;
+    return antropy.sample_entropy(signal)</code></pre>
+</details>
+</dd>
+<dt id="signal_quality.sqis.f_sqi"><code class="name flex">
+<span>def <span class="ident">f_sqi</span></span>(<span>signal, window_size=3, threshold=1e-07)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Detect constant values over a longer period (flat line).
+Commonly caused by sensor failures, which get stuck at a constant level.
+returns percentage of signal that is flat line</p>
+<p>Source: <a href="https://github.com/DHI/tsod/blob/main/tsod/detectors.py">https://github.com/DHI/tsod/blob/main/tsod/detectors.py</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def f_sqi(signal, window_size=3, threshold=1e-7):
+    &#34;&#34;&#34;Detect constant values over a longer period (flat line).
+    Commonly caused by sensor failures, which get stuck at a constant level.
+    returns percentage of signal that is flat line
+
+    Source: https://github.com/DHI/tsod/blob/main/tsod/detectors.py
+    &#34;&#34;&#34;
+    if window_size &gt;= len(signal): return 0
+
+    rolling = np.lib.stride_tricks.sliding_window_view(signal, window_shape=window_size)
+    rollmax = np.nanmax(rolling, axis=1)
+    rollmin = np.nanmin(rolling, axis=1)
+    
+    anomalies = rollmax - rollmin &lt; threshold
+    anomalies[0] = False  # first element cannot be determined
+    anomalies[-1] = False
+
+    idx = np.where(anomalies)[0]
+    if idx is not None:
+        # assuming window size = 3
+        # remove also points before and after each detected anomaly
+        anomalies[idx[idx &gt; 0] - 1] = True
+        maxidx = len(anomalies) - 1
+        anomalies[idx[idx &lt; maxidx] + 1] = True
+
+    return np.sum(anomalies) / len(anomalies)</code></pre>
+</details>
+</dd>
+<dt id="signal_quality.sqis.get_ecg_sqis"><code class="name flex">
+<span>def <span class="ident">get_ecg_sqis</span></span>(<span>ecg_raw, ecg_cleaned, peaks, sampling_rate, window)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>returns all ecg features</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_ecg_sqis(ecg_raw, ecg_cleaned, peaks, sampling_rate, window):
+    &#34;&#34;&#34; returns all ecg features
+    &#34;&#34;&#34;
+    # ecg_cleaned = nk.ecg_clean(ecg_raw, sampling_rate=sampling_rate, method=&#34;neurokit&#34;)
+    # peaks = nk.ecg_peaks(ecg_cleaned, sampling_rate=sampling_rate, method=&#39;kalidas2017&#39;)[1][&#39;ECG_R_Peaks&#39;]
+
+    ecg_sqis = [
+        orphanidou2015_sqi(ecg_cleaned, sampling_rate, show=False),
+        averageQRS_SQI(ecg_cleaned, sampling_rate),
+        zhao2018_SQI(ecg_cleaned, sampling_rate),
+        p_SQI(ecg_cleaned, sampling_rate, window, num_spectrum=[5, 15], dem_spectrum=[5, 40]),
+        bas_SQI(ecg_cleaned, sampling_rate, window, num_spectrum=[0, 1], dem_spectrum=[0, 40]),
+        c_SQI(ecg_cleaned, sampling_rate),
+        q_sqi(ecg_cleaned, sampling_rate, matching_qrs_frames_tolerance=50),
+        bs_sqi(ecg_cleaned, peaks, sampling_rate),
+        e_sqi(ecg_cleaned, peaks, sampling_rate),
+        hf_sqi(ecg_raw, peaks, sampling_rate),
+        rsd_sqi(ecg_cleaned, peaks, sampling_rate),
+    ]
+
+    generic_sqis = get_generic_sqis(signal=ecg_raw)
+    return ecg_sqis + generic_sqis</code></pre>
+</details>
+</dd>
+<dt id="signal_quality.sqis.get_generic_sqis"><code class="name flex">
+<span>def <span class="ident">get_generic_sqis</span></span>(<span>signal)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_generic_sqis(signal):
+    return [
+        k_SQI(signal, kurtosis_method=&#39;fisher&#39;),
+        s_SQI(signal),
+        pur_sqi(signal),
+        ent_sqi(signal),
+        zc_sqi(signal),
+        f_sqi(signal, window_size=3, threshold=1e-7),
+        np.nanmean(signal),
+        np.nanstd(signal),
+        np.nanmax(signal),
+        np.nanmin(signal)
+    ]</code></pre>
+</details>
+</dd>
+<dt id="signal_quality.sqis.get_pleth_sqis"><code class="name flex">
+<span>def <span class="ident">get_pleth_sqis</span></span>(<span>pleth_raw, pleth_cleaned)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>returns all pleth sqis</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_pleth_sqis(pleth_raw, pleth_cleaned):
+    &#34;&#34;&#34; returns all pleth sqis
+    &#34;&#34;&#34;
+    # pleth_cleaned = nk.ppg_clean(ppg_signal=pleth_raw, sampling_rate=sampling_rate, method=&#39;elgendi&#39;)
+    pleth_sqis = [
+        perfusion_sqi(pleth_raw, pleth_cleaned),
+    ]
+
+    generic_sqis = get_generic_sqis(signal=pleth_raw)
+    return pleth_sqis + generic_sqis</code></pre>
+</details>
+</dd>
+<dt id="signal_quality.sqis.hf_sqi"><code class="name flex">
+<span>def <span class="ident">hf_sqi</span></span>(<span>ecg_raw, peaks, sampling_rate)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>the relative amplitude of high frequency noise</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def hf_sqi(ecg_raw, peaks, sampling_rate):
+    &#34;&#34;&#34; the relative amplitude of high frequency noise
+    &#34;&#34;&#34;
+    if len(ecg_raw) &lt; 6: return np.nan
+
+    ## integer coefficients high pass filter y(j) = x(j) − 2x(j − 1) + x(j − 2)
+    y = ecg_raw[:-2] - 2*ecg_raw[1:-1] + ecg_raw[2:]
+    s = y[:-5] + y[1:-4] + y[2:-3] + y[3:-2] + y[4:-1] + y[5:]
+    
+    total = []
+    for peak in peaks:
+        # Ra is peak to peak amplitude of ECG signal from (R-0.07s, R+0.08s)
+        window = ecg_raw[max(int(peak-0.07*sampling_rate), 0) : min(int(peak+0.08*sampling_rate), len(ecg_raw))]    
+        # energy of QRS
+
+        Ra = np.max(window) - np.min(window)
+
+        window = s[max(int(peak-0.28*sampling_rate), 0) : min(int(peak-0.05*sampling_rate), len(s))]
+        H = np.nanmean(window)
+
+        total.append(Ra / H)
+    return np.nanmean(total)</code></pre>
+</details>
+</dd>
+<dt id="signal_quality.sqis.k_SQI"><code class="name flex">
+<span>def <span class="ident">k_SQI</span></span>(<span>signal, kurtosis_method='fisher')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the kurtosis of the signal, with Fisher's or Pearson's method.
+signal : np.array
+kurtosis_method : str
+Compute kurtosis (kSQI) based on "fisher" (default) or "pearson" definition.</p>
+<p>Source: <a href="https://github.com/neuropsychology/NeuroKit/blob/master/neurokit2/ecg/ecg_quality.py">https://github.com/neuropsychology/NeuroKit/blob/master/neurokit2/ecg/ecg_quality.py</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def k_SQI(signal, kurtosis_method=&#39;fisher&#39;):
+    &#34;&#34;&#34;Return the kurtosis of the signal, with Fisher&#39;s or Pearson&#39;s method.
+    signal : np.array
+    kurtosis_method : str
+        Compute kurtosis (kSQI) based on &#34;fisher&#34; (default) or &#34;pearson&#34; definition.
+
+    Source: https://github.com/neuropsychology/NeuroKit/blob/master/neurokit2/ecg/ecg_quality.py
+    &#34;&#34;&#34;
+    if kurtosis_method == &#34;fisher&#34;:
+        return scipy.stats.kurtosis(signal, fisher=True)
+    elif kurtosis_method == &#34;pearson&#34;:
+        return scipy.stats.kurtosis(signal, fisher=False)</code></pre>
+</details>
+</dd>
+<dt id="signal_quality.sqis.orphanidou2015_sqi"><code class="name flex">
+<span>def <span class="ident">orphanidou2015_sqi</span></span>(<span>ecg_cleaned, sampling_rate, show=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>C. Orphanidou, T. Bonnici, P. Charlton, D. Clifton, D. Vallance and L. Tarassenko,
+"Signal quality indices for the electrocardiogram and photoplethysmogram: Derivation and applications to wireless monitoring",
+IEEE J. Biomed. Health Informat., vol. 19, no. 3, pp. 832-838, May 2015.</p>
+<p>ecg_window : np.array
+The input ECG
+sampling_rate : int
+The hz of the input ECG signal
+show : bool
+Flag whether to show the obtained peaks</p>
+<p>returns average correlation coefficient (scipy.stats.pearsonr)
+that range from -1 to 1</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def orphanidou2015_sqi(ecg_cleaned, sampling_rate, show=False):
+    &#34;&#34;&#34;C. Orphanidou, T. Bonnici, P. Charlton, D. Clifton, D. Vallance and L. Tarassenko, 
+    &#34;Signal quality indices for the electrocardiogram and photoplethysmogram: Derivation and applications to wireless monitoring&#34;, 
+    IEEE J. Biomed. Health Informat., vol. 19, no. 3, pp. 832-838, May 2015.
+
+    ecg_window : np.array
+        The input ECG
+    sampling_rate : int
+        The hz of the input ECG signal
+    show : bool
+         Flag whether to show the obtained peaks
+
+    returns average correlation coefficient (scipy.stats.pearsonr)
+        that range from -1 to 1
+    &#34;&#34;&#34;
+    
+    try:
+        ## out = (&#39;ts&#39;, &#39;filtered&#39;, &#39;rpeaks&#39;, &#39;templates_ts&#39;, &#39;templates&#39;, &#39;heart_rate_ts&#39;, &#39;heart_rate&#39;)
+        out = biosppy.signals.ecg.ecg(signal=ecg_cleaned, sampling_rate=sampling_rate, show=show)
+    except Exception as e:
+        return np.nan
+
+    nni = pyhrv.tools.nn_intervals(rpeaks=out[&#39;rpeaks&#39;])
+    ## nni is in ms, convert to s
+    nni = nni / 1000
+
+    ## obtain median rr interval
+    median_qrs_window = np.median(out[&#39;rpeaks&#39;][1:] - out[&#39;rpeaks&#39;][:-1]).astype(int)
+
+    ## check heart rate in reasonable range of [40,180]
+    if np.any(out[&#39;heart_rate&#39;] &lt; 40) or np.any(180 &lt; out[&#39;heart_rate&#39;]):
+        return 1
+
+    ## if all nni are less than 3 seconds
+    if np.any(nni &gt; 3):
+        return 1
+
+    ## check max_rr_interval / min_rr_interval &lt; 2.2
+    if (np.max(nni) / np.min(nni)) &gt; 2.2:
+        return 1
+
+    templates = np.array([
+        ecg_cleaned[r_peak-median_qrs_window//2:r_peak+median_qrs_window//2] 
+        for r_peak in out[&#39;rpeaks&#39;]
+        if (r_peak-median_qrs_window//2 &gt;= 0) and (r_peak+median_qrs_window//2 &lt; len(ecg_cleaned))
+    ])
+    
+    average_template = np.mean(templates, axis=0)
+
+    ## scipy.stats.pearsonr returns r, p_value
+    corrcoefs = [
+        scipy.stats.pearsonr(x=templates[i], y=average_template)[0]
+        for i in range(len(templates))
+        ]
+
+    return np.mean(corrcoefs)</code></pre>
+</details>
+</dd>
+<dt id="signal_quality.sqis.p_SQI"><code class="name flex">
+<span>def <span class="ident">p_SQI</span></span>(<span>ecg_cleaned, sampling_rate, window, num_spectrum=[5, 15], dem_spectrum=[5, 40])</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Power Spectrum Distribution of QRS Wave.
+ecg_cleaned : np.array
+The cleaned ECG signal in the form of a vector of values.
+sampling_rate : int
+The sampling frequency of the signal (in Hz, i.e., samples/second).
+window : int
+Length of each window in seconds. See <code>signal_psd()</code>.</p>
+<p>Source: <a href="https://github.com/neuropsychology/NeuroKit/blob/master/neurokit2/ecg/ecg_quality.py">https://github.com/neuropsychology/NeuroKit/blob/master/neurokit2/ecg/ecg_quality.py</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def p_SQI(ecg_cleaned, sampling_rate, window, num_spectrum=[5, 15], dem_spectrum=[5, 40]):
+    &#34;&#34;&#34;Power Spectrum Distribution of QRS Wave.
+    ecg_cleaned : np.array
+        The cleaned ECG signal in the form of a vector of values.
+    sampling_rate : int
+        The sampling frequency of the signal (in Hz, i.e., samples/second).
+    window : int
+        Length of each window in seconds. See `signal_psd()`.
+
+    Source: https://github.com/neuropsychology/NeuroKit/blob/master/neurokit2/ecg/ecg_quality.py
+    &#34;&#34;&#34;
+    try:
+        psd = nk.signal_power(
+            ecg_cleaned,
+            sampling_rate=sampling_rate,
+            frequency_band=[num_spectrum, dem_spectrum],
+            method=&#34;welch&#34;,
+            normalize=False,
+            window=window
+            )
+
+        num_power = psd.iloc[0][0]
+        dem_power = psd.iloc[0][1]
+
+        return num_power / dem_power
+    except Exception as e:
+        return np.nan</code></pre>
+</details>
+</dd>
+<dt id="signal_quality.sqis.pca_sqi"><code class="name flex">
+<span>def <span class="ident">pca_sqi</span></span>(<span>signal)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def pca_sqi(signal):
+    # todo: Currently, we are only using single channel (1d) swis
+    pca = sklearn.decomposition.PCA(n_components=2)
+    pca.fit(signal)
+
+    return np.sum(pca.singular_values_[:5]) / np.sum(pca.singular_values_)</code></pre>
+</details>
+</dd>
+<dt id="signal_quality.sqis.perfusion_sqi"><code class="name flex">
+<span>def <span class="ident">perfusion_sqi</span></span>(<span>pleth_raw, pleth_cleaned)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>returns perfusion of pleth
+The perfusion index is the ratio of the pulsatile blood flow to the nonpulsatile
+or static blood in peripheral tissue. In other words, it is the difference of the
+amount of light absorbed through the pulse of when light is transmitted through
+the finger AC/DC * 100</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def perfusion_sqi(pleth_raw, pleth_cleaned):
+    &#34;&#34;&#34;returns perfusion of pleth
+    The perfusion index is the ratio of the pulsatile blood flow to the nonpulsatile 
+    or static blood in peripheral tissue. In other words, it is the difference of the 
+    amount of light absorbed through the pulse of when light is transmitted through 
+    the finger AC/DC * 100
+    &#34;&#34;&#34;
+    try:
+        return (np.nanmax(pleth_cleaned) - np.nanmin(pleth_cleaned)) / np.nanmean(pleth_raw) * 100
+    except Exception as e:
+        return np.nan    </code></pre>
+</details>
+</dd>
+<dt id="signal_quality.sqis.pur_sqi"><code class="name flex">
+<span>def <span class="ident">pur_sqi</span></span>(<span>signal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>" returns the signal purity of the input
+In the case of a periodic signal with a single dominant frequency,
+it takes the value of one and approaches zero for non-sinusoidal noisy signals.
+antropy.hjorth_params returns 2 floats: mobility, complexity
+Complexity is the value we want</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def pur_sqi(signal):
+    &#34;&#34;&#34;&#34; returns the signal purity of the input
+    In the case of a periodic signal with a single dominant frequency, 
+    it takes the value of one and approaches zero for non-sinusoidal noisy signals.
+    antropy.hjorth_params returns 2 floats: mobility, complexity
+    Complexity is the value we want
+    &#34;&#34;&#34;
+    return antropy.hjorth_params(signal)[1]</code></pre>
+</details>
+</dd>
+<dt id="signal_quality.sqis.q_sqi"><code class="name flex">
+<span>def <span class="ident">q_sqi</span></span>(<span>ecg_cleaned, sampling_rate, matching_qrs_frames_tolerance=50)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Matching Degree of R Peak Detection
+Two R wave detection algorithms are compared with their respective number
+of R waves detected.
+* Hamilton
+* SWT (Stationary Wavelet Transform)
+Parameters</p>
+<hr>
+<dl>
+<dt><strong><code>ecg_signal</code></strong> :&ensp;<code>list</code></dt>
+<dd>Input ECG signal</dd>
+<dt><strong><code>sampling_frequency</code></strong> :&ensp;<code>list</code></dt>
+<dd>Input ecg sampling frequency</dd>
+<dt><strong><code>Source</code></strong> :&ensp;<code>&lt;https://github.com/Aura-healthcare/ecg_qc/blob/main/ecg_qc/sqi_computing/sqi_rr_intervals.py&gt;</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def q_sqi(ecg_cleaned, sampling_rate, matching_qrs_frames_tolerance=50):
+    &#34;&#34;&#34;Matching Degree of R Peak Detection
+    Two R wave detection algorithms are compared with their respective number
+    of R waves detected.
+    * Hamilton
+    * SWT (Stationary Wavelet Transform)
+    Parameters
+    ----------
+    ecg_signal : list
+        Input ECG signal
+    sampling_frequency : list
+        Input ecg sampling frequency
+
+    Source: https://github.com/Aura-healthcare/ecg_qc/blob/main/ecg_qc/sqi_computing/sqi_rr_intervals.py
+    &#34;&#34;&#34;
+
+    ## returns signals: df, info: dict of {&#39;ECG_R_Peaks&#39;, &#39;sampling_rate&#39;}
+    qrs_frames_1 = nk.ecg_peaks(ecg_cleaned, sampling_rate=125, method=&#39;hamilton2002&#39;)[1][&#39;ECG_R_Peaks&#39;]
+    qrs_frames_2 = nk.ecg_peaks(ecg_cleaned, sampling_rate=125, method=&#39;kalidas2017&#39;)[1][&#39;ECG_R_Peaks&#39;]
+    
+    # compute_qrs_frames_correlation
+    single_frame_duration = 1/sampling_rate
+
+    frame_tolerance = matching_qrs_frames_tolerance * (0.001 / single_frame_duration)
+
+    # Catch complete failed QRS detection
+    if (len(qrs_frames_1) == 0 or len(qrs_frames_2) == 0):
+        return 0
+
+    i = 0
+    j = 0
+    matching_frames = 0
+
+    while i &lt; len(qrs_frames_1) and j &lt; len(qrs_frames_2):
+        min_qrs_frame = min(qrs_frames_1[i], qrs_frames_2[j])
+        # Get missing detected beats intervals
+        # Matching frames
+        if abs(qrs_frames_2[j] - qrs_frames_1[i]) &lt; frame_tolerance:
+            matching_frames += 1
+            i += 1
+            j += 1
+        else:
+            # increment first QRS in frame list
+            if min_qrs_frame == qrs_frames_1[i]:
+                i += 1
+            else:
+                j += 1
+
+    correlation_coefs = 2 * matching_frames / (len(qrs_frames_1) + len(qrs_frames_2))
+
+    return correlation_coefs</code></pre>
+</details>
+</dd>
+<dt id="signal_quality.sqis.rsd_sqi"><code class="name flex">
+<span>def <span class="ident">rsd_sqi</span></span>(<span>ecg_cleaned, peaks, sampling_rate)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>the relative standard deviation</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def rsd_sqi(ecg_cleaned, peaks, sampling_rate):
+    &#34;&#34;&#34; the relative standard deviation
+    &#34;&#34;&#34;
+    
+    total = []
+    for peak in peaks:
+        # Ra is peak to peak amplitude of ECG signal from (R-0.07s, R+0.08s)
+        window = ecg_cleaned[max(int(peak-0.07*sampling_rate), 0) : min(int(peak+0.08*sampling_rate), len(ecg_cleaned))]    
+        # energy of QRS
+        sigma_r = np.nanstd(window)
+
+        window = ecg_cleaned[max(int(peak-0.2*sampling_rate), 0) : min(int(peak+0.2*sampling_rate), len(ecg_cleaned))]
+        sigma_a = np.nanstd(window)
+        
+        total.append(sigma_r / (sigma_a*2))
+    return np.nanmean(total)</code></pre>
+</details>
+</dd>
+<dt id="signal_quality.sqis.s_SQI"><code class="name flex">
+<span>def <span class="ident">s_SQI</span></span>(<span>signal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the skewnss of the signal
+signal : np.array</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def s_SQI(signal):
+    &#34;&#34;&#34;Return the skewnss of the signal
+    signal : np.array
+    &#34;&#34;&#34;
+    return scipy.stats.skew(signal)</code></pre>
+</details>
+</dd>
+<dt id="signal_quality.sqis.snr_sqi"><code class="name flex">
+<span>def <span class="ident">snr_sqi</span></span>(<span>signal_raw, signal_cleaned)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>there are many ways to define SNR, here we use std of filtered vs std of raw</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def snr_sqi(signal_raw, signal_cleaned):
+    &#34;&#34;&#34;there are many ways to define SNR, here we use std of filtered vs std of raw
+    &#34;&#34;&#34;
+    return np.std(np.abs(signal_cleaned)) / np.std(np.abs(signal_raw))</code></pre>
+</details>
+</dd>
+<dt id="signal_quality.sqis.zc_sqi"><code class="name flex">
+<span>def <span class="ident">zc_sqi</span></span>(<span>signal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>zero cross rate</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def zc_sqi(signal):
+    &#34;&#34;&#34;zero cross rate
+    &#34;&#34;&#34;
+    return antropy.num_zerocross(signal)</code></pre>
+</details>
+</dd>
+<dt id="signal_quality.sqis.zhao2018_SQI"><code class="name flex">
+<span>def <span class="ident">zhao2018_SQI</span></span>(<span>ecg_cleaned, sampling_rate)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>extracts several signal quality indexes (SQIs):
+QRS wave power spectrum distribution pSQI, kurtosis kSQI, and baseline relative power basSQI.
+An additional R peak detection match qSQI was originally computed in the paper but left out
+in this algorithm. The indices were originally weighted with a ratio of [0.4, 0.4, 0.1, 0.1] to
+generate the final classification outcome, but because qSQI was dropped,
+the weights have been rearranged to [0.6, 0.2, 0.2] for pSQI, kSQI and basSQI respectively</p>
+<p>ecg_cleaned : np.array
+The cleaned ECG signal in the form of a vector of values.
+sampling_rate : int
+The sampling frequency of the signal (in Hz, i.e., samples/second).</p>
+<p>Source: <a href="https://github.com/neuropsychology/NeuroKit/blob/master/neurokit2/ecg/ecg_quality.py">https://github.com/neuropsychology/NeuroKit/blob/master/neurokit2/ecg/ecg_quality.py</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def zhao2018_SQI(ecg_cleaned, sampling_rate):
+    &#34;&#34;&#34;extracts several signal quality indexes (SQIs):
+    QRS wave power spectrum distribution pSQI, kurtosis kSQI, and baseline relative power basSQI.
+    An additional R peak detection match qSQI was originally computed in the paper but left out
+    in this algorithm. The indices were originally weighted with a ratio of [0.4, 0.4, 0.1, 0.1] to
+    generate the final classification outcome, but because qSQI was dropped,
+    the weights have been rearranged to [0.6, 0.2, 0.2] for pSQI, kSQI and basSQI respectively
+
+    ecg_cleaned : np.array
+        The cleaned ECG signal in the form of a vector of values.
+    sampling_rate : int
+        The sampling frequency of the signal (in Hz, i.e., samples/second).
+
+    Source: https://github.com/neuropsychology/NeuroKit/blob/master/neurokit2/ecg/ecg_quality.py
+    &#34;&#34;&#34;
+    try:
+        rating = nk.ecg_quality(ecg_cleaned=ecg_cleaned, rpeaks=None, sampling_rate=sampling_rate, method=&#34;zhao2018&#34;, approach=&#39;fuzzy&#39;)
+        if rating == &#34;Excellent&#34;:
+            return 2
+        elif rating == &#34;Unnacceptable&#34;:
+            return 0
+        else:
+            return 1
+    except Exception as e:
+        # print(e)
+        return np.nan</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="signal_quality" href="index.html">signal_quality</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="two-column">
+<li><code><a title="signal_quality.sqis.autocorr_sqi" href="#signal_quality.sqis.autocorr_sqi">autocorr_sqi</a></code></li>
+<li><code><a title="signal_quality.sqis.averageQRS_SQI" href="#signal_quality.sqis.averageQRS_SQI">averageQRS_SQI</a></code></li>
+<li><code><a title="signal_quality.sqis.bas_SQI" href="#signal_quality.sqis.bas_SQI">bas_SQI</a></code></li>
+<li><code><a title="signal_quality.sqis.bs_sqi" href="#signal_quality.sqis.bs_sqi">bs_sqi</a></code></li>
+<li><code><a title="signal_quality.sqis.c_SQI" href="#signal_quality.sqis.c_SQI">c_SQI</a></code></li>
+<li><code><a title="signal_quality.sqis.e_sqi" href="#signal_quality.sqis.e_sqi">e_sqi</a></code></li>
+<li><code><a title="signal_quality.sqis.ent_sqi" href="#signal_quality.sqis.ent_sqi">ent_sqi</a></code></li>
+<li><code><a title="signal_quality.sqis.f_sqi" href="#signal_quality.sqis.f_sqi">f_sqi</a></code></li>
+<li><code><a title="signal_quality.sqis.get_ecg_sqis" href="#signal_quality.sqis.get_ecg_sqis">get_ecg_sqis</a></code></li>
+<li><code><a title="signal_quality.sqis.get_generic_sqis" href="#signal_quality.sqis.get_generic_sqis">get_generic_sqis</a></code></li>
+<li><code><a title="signal_quality.sqis.get_pleth_sqis" href="#signal_quality.sqis.get_pleth_sqis">get_pleth_sqis</a></code></li>
+<li><code><a title="signal_quality.sqis.hf_sqi" href="#signal_quality.sqis.hf_sqi">hf_sqi</a></code></li>
+<li><code><a title="signal_quality.sqis.k_SQI" href="#signal_quality.sqis.k_SQI">k_SQI</a></code></li>
+<li><code><a title="signal_quality.sqis.orphanidou2015_sqi" href="#signal_quality.sqis.orphanidou2015_sqi">orphanidou2015_sqi</a></code></li>
+<li><code><a title="signal_quality.sqis.p_SQI" href="#signal_quality.sqis.p_SQI">p_SQI</a></code></li>
+<li><code><a title="signal_quality.sqis.pca_sqi" href="#signal_quality.sqis.pca_sqi">pca_sqi</a></code></li>
+<li><code><a title="signal_quality.sqis.perfusion_sqi" href="#signal_quality.sqis.perfusion_sqi">perfusion_sqi</a></code></li>
+<li><code><a title="signal_quality.sqis.pur_sqi" href="#signal_quality.sqis.pur_sqi">pur_sqi</a></code></li>
+<li><code><a title="signal_quality.sqis.q_sqi" href="#signal_quality.sqis.q_sqi">q_sqi</a></code></li>
+<li><code><a title="signal_quality.sqis.rsd_sqi" href="#signal_quality.sqis.rsd_sqi">rsd_sqi</a></code></li>
+<li><code><a title="signal_quality.sqis.s_SQI" href="#signal_quality.sqis.s_SQI">s_SQI</a></code></li>
+<li><code><a title="signal_quality.sqis.snr_sqi" href="#signal_quality.sqis.snr_sqi">snr_sqi</a></code></li>
+<li><code><a title="signal_quality.sqis.zc_sqi" href="#signal_quality.sqis.zc_sqi">zc_sqi</a></code></li>
+<li><code><a title="signal_quality.sqis.zhao2018_SQI" href="#signal_quality.sqis.zhao2018_SQI">zhao2018_SQI</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
