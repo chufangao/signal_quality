@@ -39,7 +39,7 @@ import sklearn
 
 def orphanidou2015_sqi(ecg_cleaned, sampling_rate, show=False):
     &#34;&#34;&#34; Implementation of template matching approach introduced by Orphanidou et al. 
-    Returns average correlation coefficient (scipy.stats.pearsonr) of the QRS waveforms that ranges from -1 to 1
+    Returns the average correlation coefficient (scipy.stats.pearsonr) of the QRS waveforms that ranges from -1 to 1
 
     Parameters
     ----------
@@ -99,7 +99,7 @@ def orphanidou2015_sqi(ecg_cleaned, sampling_rate, show=False):
     return np.mean(corrcoefs)
 
 def averageQRS_SQI(ecg_cleaned, sampling_rate):
-    &#34;&#34;&#34;Computes a continuous index of quality of the ECG signal, by interpolating the distance
+    &#34;&#34;&#34;Computes a continuous index of quality of the ECG signal by interpolating the distance
     of each QRS segment from the average QRS segment present in the data. This index is relative: 
     1 corresponds to heartbeats that are the closest to the average sample and 0 corresponds to 
     the most distant heartbeat from that average sample. Note that 1 does not necessarily means
@@ -132,7 +132,8 @@ def averageQRS_SQI(ecg_cleaned, sampling_rate):
         return np.nan
 
 def zhao2018_SQI(ecg_cleaned, sampling_rate):
-    &#34;&#34;&#34;extracts several signal quality indexes (SQIs):
+    &#34;&#34;&#34;Returns the zhao2018 output for ECG signal quality prediction. 
+    The metod extracts several signal quality indexes (SQIs):
     QRS wave power spectrum distribution pSQI, kurtosis kSQI, and baseline relative power basSQI.
     An additional R peak detection match qSQI was originally computed in the paper but left out
     in this algorithm. The indices were originally weighted with a ratio of [0.4, 0.4, 0.1, 0.1] to
@@ -164,7 +165,7 @@ def zhao2018_SQI(ecg_cleaned, sampling_rate):
 
 
 def p_SQI(ecg_cleaned, sampling_rate, window, num_spectrum=[5, 15], dem_spectrum=[5, 40]):
-    &#34;&#34;&#34;Power Spectrum Distribution of QRS Wave.
+    &#34;&#34;&#34;Returns a SQI based off of the Power Spectrum Distribution of QRS Waveform.
 
     Parameters
     ----------
@@ -197,7 +198,7 @@ def p_SQI(ecg_cleaned, sampling_rate, window, num_spectrum=[5, 15], dem_spectrum
         return np.nan
 
 def bas_SQI(ecg_cleaned, sampling_rate, window, num_spectrum=[0, 1], dem_spectrum=[0, 40]):
-    &#34;&#34;&#34;Relative Power in the Baseline.
+    &#34;&#34;&#34;Returns a SQI that measures Relative Power in the baseline.
 
     Parameters
     ----------
@@ -231,9 +232,9 @@ def bas_SQI(ecg_cleaned, sampling_rate, window, num_spectrum=[0, 1], dem_spectru
         return np.nan
 
 def c_SQI(ecg_cleaned, sampling_rate):
-    &#34;&#34;&#34;Variability in the R-R Interval
+    &#34;&#34;&#34;Returns a SQI that measures variability in the R-R Interval. 
     When an artifact is present, the QRS detector underperforms by either
-    missing R-peaks or erroneously identifying noisy peaks as R- peaks. The
+    missing R-peaks or erroneously identifying noisy peaks as Rpeaks. The
     above two problems will lead to a high degree of variability in the
     distribution of R-R intervals.
 
@@ -258,11 +259,9 @@ def c_SQI(ecg_cleaned, sampling_rate):
     return c_sqi_score
 
 def q_sqi(ecg_cleaned, sampling_rate, matching_qrs_frames_tolerance=50):
-    &#34;&#34;&#34;Matching Degree of R Peak Detection
+    &#34;&#34;&#34;Returns a SQI that measures matching Degree of R Peak Detection. 
     Two R wave detection algorithms are compared with their respective number
-    of R waves detected.
-    * Hamilton
-    * SWT (Stationary Wavelet Transform)
+    of R waves detected (Hamilton vs Stationary Wavelet Transform).
     
     Parameters
     ----------
@@ -313,8 +312,7 @@ def q_sqi(ecg_cleaned, sampling_rate, matching_qrs_frames_tolerance=50):
     return correlation_coefs
 
 def bs_sqi(ecg_cleaned, peaks, sampling_rate):
-    &#34;&#34;&#34;SQI for baseline wander check in time domain
-    the higher the wander, the lower the bs_sqi.
+    &#34;&#34;&#34;Returns a SQI for baseline wander check in time domain. The higher the wander, the lower the bs_sqi.
 
     Parameters
     ----------
@@ -352,8 +350,7 @@ def bs_sqi(ecg_cleaned, peaks, sampling_rate):
     return total
 
 def e_sqi(ecg_cleaned, peaks, sampling_rate):
-    &#34;&#34;&#34; returns the relative energy of the signal
-    i.e. sum of energy of detected QRS over energy of entire signal
+    &#34;&#34;&#34; Returns a SQI based off of the sum of energy of detected QRS waveforms over energy of entire signal.
 
     Parameters
     ----------
@@ -381,7 +378,7 @@ def e_sqi(ecg_cleaned, peaks, sampling_rate):
     return total / np.dot(ecg_cleaned, ecg_cleaned)
 
 def hf_sqi(ecg_raw, peaks, sampling_rate):
-    &#34;&#34;&#34; Returns the relative amplitude of high frequency noise
+    &#34;&#34;&#34; Returns a SQI based on the relative amplitude of high frequency noise.
 
     Parameters
     ----------
@@ -419,7 +416,7 @@ def hf_sqi(ecg_raw, peaks, sampling_rate):
     return np.nanmean(total)
 
 def rsd_sqi(ecg_cleaned, peaks, sampling_rate):
-    &#34;&#34;&#34; Returns the relative standard deviation
+    &#34;&#34;&#34; Returns a SQI based on the relative standard deviation.
 
     Parameters
     ----------
@@ -451,7 +448,7 @@ def rsd_sqi(ecg_cleaned, peaks, sampling_rate):
     return np.nanmean(total)
 
 def get_ecg_sqis(ecg_raw, ecg_cleaned, peaks, sampling_rate, window):
-    &#34;&#34;&#34; Returns all ecg features
+    &#34;&#34;&#34; Returns all ECG SQIs.
 
     Parameters
     ----------
@@ -495,11 +492,10 @@ def get_ecg_sqis(ecg_raw, ecg_cleaned, peaks, sampling_rate, window):
 ### ===================================================== Relevant Pleth Features =====================================================
 
 def perfusion_sqi(pleth_raw, pleth_cleaned):
-    &#34;&#34;&#34;Returns perfusion of pleth
-    The perfusion index is the ratio of the pulsatile blood flow to the nonpulsatile 
+    &#34;&#34;&#34;Returns perfusion of Pleth. The perfusion index is the ratio of the pulsatile blood flow to the nonpulsatile 
     or static blood in peripheral tissue. In other words, it is the difference of the 
     amount of light absorbed through the pulse of when light is transmitted through 
-    the finger AC/DC * 100
+    the finger. It is calculated as AC/DC * 100
 
     Parameters
     ----------
@@ -514,7 +510,7 @@ def perfusion_sqi(pleth_raw, pleth_cleaned):
         return np.nan    
 
 def get_pleth_sqis(pleth_raw, pleth_cleaned):
-    &#34;&#34;&#34; Returns all Pleth sqis
+    &#34;&#34;&#34; Returns all Pleth SQIs.
 
     Parameters
     ----------
@@ -559,7 +555,7 @@ def k_SQI(signal, kurtosis_method=&#39;fisher&#39;):
         return scipy.stats.kurtosis(signal, fisher=False)
 
 def s_SQI(signal):
-    &#34;&#34;&#34;Return the skewness of the signal
+    &#34;&#34;&#34;Return the skewness of the signal.
 
     Parameters
     ----------
@@ -569,11 +565,11 @@ def s_SQI(signal):
     return scipy.stats.skew(signal)
 
 def pur_sqi(signal):
-    &#34;&#34;&#34; Returns the signal purity of the input
+    &#34;&#34;&#34; Returns the signal purity of the input. 
     In the case of a periodic signal with a single dominant frequency, 
     it takes the value of one and approaches zero for non-sinusoidal noisy signals.
-    antropy.hjorth_params returns 2 floats: mobility, complexity
-    Complexity is the value we want
+    antropy.hjorth_params returns 2 floats: (mobility, complexity).
+    Complexity is the value we want.
 
     Parameters
     ----------
@@ -583,7 +579,7 @@ def pur_sqi(signal):
     return antropy.hjorth_params(signal)[1]
 
 def ent_sqi(signal):
-    &#34;&#34;&#34; Returns the sample entropy
+    &#34;&#34;&#34; Returns the sample entropy of the signal.
 
     Parameters
     ----------
@@ -593,7 +589,7 @@ def ent_sqi(signal):
     return antropy.sample_entropy(signal)
 
 def pca_sqi(signal):
-    &#34;&#34;&#34; Returns a pca SQI of a multivariate time series.
+    &#34;&#34;&#34; Returns a PCA SQI of the input signals.
 
     Parameters
     ----------
@@ -607,8 +603,7 @@ def pca_sqi(signal):
     return np.sum(pca.singular_values_[:5]) / np.sum(pca.singular_values_)
 
 def autocorr_sqi(signal, lag):
-    &#34;&#34;&#34;Calculates the autocorrelation of the specified lag, according to the formula [1]
-    [1] https://en.wikipedia.org/wiki/Autocorrelation#Estimation
+    &#34;&#34;&#34;Calculates the autocorrelation of the specified lag, according to the formula in https://en.wikipedia.org/wiki/Autocorrelation#Estimation
 
     Parameters
     ----------
@@ -641,7 +636,7 @@ def autocorr_sqi(signal, lag):
         return sum_product / ((len(signal) - lag) * v)
 
 def zc_sqi(signal):
-    &#34;&#34;&#34;Returns the zero cross rate
+    &#34;&#34;&#34;Returns the zero crossing rate.
 
     Parameters
     ----------
@@ -651,7 +646,7 @@ def zc_sqi(signal):
     return antropy.num_zerocross(signal)
 
 def snr_sqi(signal_raw, signal_cleaned):
-    &#34;&#34;&#34;There are many ways to define SNR, here, we use std of filtered vs std of raw signal
+    &#34;&#34;&#34;Returns the signal to noise ratio (SNR). There are many ways to define SNR, here, we use std of filtered vs std of raw signal.
 
     Parameters
     ----------
@@ -663,9 +658,8 @@ def snr_sqi(signal_raw, signal_cleaned):
     return np.std(np.abs(signal_cleaned)) / np.std(np.abs(signal_raw))
 
 def f_sqi(signal, window_size=3, threshold=1e-7):
-    &#34;&#34;&#34;Detect constant values over a longer period (flat line).
-    Commonly caused by sensor failures, which get stuck at a constant level.
-    returns percentage of signal that is flat line
+    &#34;&#34;&#34;Returns an SQI that computes percentage of flatness in the signal. 
+    Constant values over a longer period (flat line) may be caused by sensor failures.
 
     Parameters
     ----------
@@ -701,7 +695,7 @@ def f_sqi(signal, window_size=3, threshold=1e-7):
     return np.sum(anomalies) / len(anomalies)
 
 def get_generic_sqis(signal):
-    &#34;&#34;&#34; Returns SQIs for a generic signal
+    &#34;&#34;&#34; Returns SQIs for a generic signal.
 
     Parameters
     ----------
@@ -738,8 +732,7 @@ def get_generic_sqis(signal):
 <span>def <span class="ident">autocorr_sqi</span></span>(<span>signal, lag)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Calculates the autocorrelation of the specified lag, according to the formula [1]
-[1] <a href="https://en.wikipedia.org/wiki/Autocorrelation#Estimation">https://en.wikipedia.org/wiki/Autocorrelation#Estimation</a></p>
+<div class="desc"><p>Calculates the autocorrelation of the specified lag, according to the formula in <a href="https://en.wikipedia.org/wiki/Autocorrelation#Estimation">https://en.wikipedia.org/wiki/Autocorrelation#Estimation</a></p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>signal</code></strong> :&ensp;<code>np.array</code></dt>
@@ -754,8 +747,7 @@ def get_generic_sqis(signal):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def autocorr_sqi(signal, lag):
-    &#34;&#34;&#34;Calculates the autocorrelation of the specified lag, according to the formula [1]
-    [1] https://en.wikipedia.org/wiki/Autocorrelation#Estimation
+    &#34;&#34;&#34;Calculates the autocorrelation of the specified lag, according to the formula in https://en.wikipedia.org/wiki/Autocorrelation#Estimation
 
     Parameters
     ----------
@@ -792,7 +784,7 @@ def get_generic_sqis(signal):
 <span>def <span class="ident">averageQRS_SQI</span></span>(<span>ecg_cleaned, sampling_rate)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Computes a continuous index of quality of the ECG signal, by interpolating the distance
+<div class="desc"><p>Computes a continuous index of quality of the ECG signal by interpolating the distance
 of each QRS segment from the average QRS segment present in the data. This index is relative:
 1 corresponds to heartbeats that are the closest to the average sample and 0 corresponds to
 the most distant heartbeat from that average sample. Note that 1 does not necessarily means
@@ -812,7 +804,7 @@ bad as well. Use this index with care and plot it alongside your ECG signal to s
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def averageQRS_SQI(ecg_cleaned, sampling_rate):
-    &#34;&#34;&#34;Computes a continuous index of quality of the ECG signal, by interpolating the distance
+    &#34;&#34;&#34;Computes a continuous index of quality of the ECG signal by interpolating the distance
     of each QRS segment from the average QRS segment present in the data. This index is relative: 
     1 corresponds to heartbeats that are the closest to the average sample and 0 corresponds to 
     the most distant heartbeat from that average sample. Note that 1 does not necessarily means
@@ -849,7 +841,7 @@ bad as well. Use this index with care and plot it alongside your ECG signal to s
 <span>def <span class="ident">bas_SQI</span></span>(<span>ecg_cleaned, sampling_rate, window, num_spectrum=[0, 1], dem_spectrum=[0, 40])</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Relative Power in the Baseline.</p>
+<div class="desc"><p>Returns a SQI that measures Relative Power in the baseline.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>ecg_cleaned</code></strong> :&ensp;<code>np.array</code></dt>
@@ -866,7 +858,7 @@ bad as well. Use this index with care and plot it alongside your ECG signal to s
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def bas_SQI(ecg_cleaned, sampling_rate, window, num_spectrum=[0, 1], dem_spectrum=[0, 40]):
-    &#34;&#34;&#34;Relative Power in the Baseline.
+    &#34;&#34;&#34;Returns a SQI that measures Relative Power in the baseline.
 
     Parameters
     ----------
@@ -904,8 +896,7 @@ bad as well. Use this index with care and plot it alongside your ECG signal to s
 <span>def <span class="ident">bs_sqi</span></span>(<span>ecg_cleaned, peaks, sampling_rate)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>SQI for baseline wander check in time domain
-the higher the wander, the lower the bs_sqi.</p>
+<div class="desc"><p>Returns a SQI for baseline wander check in time domain. The higher the wander, the lower the bs_sqi.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>ecg_cleaned</code></strong> :&ensp;<code>np.array</code></dt>
@@ -924,8 +915,7 @@ Computer methods and programs in biomedicine 117.3 (2014): 435-447.</p></div>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def bs_sqi(ecg_cleaned, peaks, sampling_rate):
-    &#34;&#34;&#34;SQI for baseline wander check in time domain
-    the higher the wander, the lower the bs_sqi.
+    &#34;&#34;&#34;Returns a SQI for baseline wander check in time domain. The higher the wander, the lower the bs_sqi.
 
     Parameters
     ----------
@@ -967,9 +957,9 @@ Computer methods and programs in biomedicine 117.3 (2014): 435-447.</p></div>
 <span>def <span class="ident">c_SQI</span></span>(<span>ecg_cleaned, sampling_rate)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Variability in the R-R Interval
+<div class="desc"><p>Returns a SQI that measures variability in the R-R Interval.
 When an artifact is present, the QRS detector underperforms by either
-missing R-peaks or erroneously identifying noisy peaks as R- peaks. The
+missing R-peaks or erroneously identifying noisy peaks as Rpeaks. The
 above two problems will lead to a high degree of variability in the
 distribution of R-R intervals.</p>
 <h2 id="parameters">Parameters</h2>
@@ -986,9 +976,9 @@ distribution of R-R intervals.</p>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def c_SQI(ecg_cleaned, sampling_rate):
-    &#34;&#34;&#34;Variability in the R-R Interval
+    &#34;&#34;&#34;Returns a SQI that measures variability in the R-R Interval. 
     When an artifact is present, the QRS detector underperforms by either
-    missing R-peaks or erroneously identifying noisy peaks as R- peaks. The
+    missing R-peaks or erroneously identifying noisy peaks as Rpeaks. The
     above two problems will lead to a high degree of variability in the
     distribution of R-R intervals.
 
@@ -1017,8 +1007,7 @@ distribution of R-R intervals.</p>
 <span>def <span class="ident">e_sqi</span></span>(<span>ecg_cleaned, peaks, sampling_rate)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>returns the relative energy of the signal
-i.e. sum of energy of detected QRS over energy of entire signal</p>
+<div class="desc"><p>Returns a SQI based off of the sum of energy of detected QRS waveforms over energy of entire signal.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>ecg_cleaned</code></strong> :&ensp;<code>np.array</code></dt>
@@ -1037,8 +1026,7 @@ Computer methods and programs in biomedicine 117.3 (2014): 435-447.</p></div>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def e_sqi(ecg_cleaned, peaks, sampling_rate):
-    &#34;&#34;&#34; returns the relative energy of the signal
-    i.e. sum of energy of detected QRS over energy of entire signal
+    &#34;&#34;&#34; Returns a SQI based off of the sum of energy of detected QRS waveforms over energy of entire signal.
 
     Parameters
     ----------
@@ -1070,7 +1058,7 @@ Computer methods and programs in biomedicine 117.3 (2014): 435-447.</p></div>
 <span>def <span class="ident">ent_sqi</span></span>(<span>signal)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Returns the sample entropy</p>
+<div class="desc"><p>Returns the sample entropy of the signal.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>signal</code></strong> :&ensp;<code>np.array</code></dt>
@@ -1081,7 +1069,7 @@ Computer methods and programs in biomedicine 117.3 (2014): 435-447.</p></div>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def ent_sqi(signal):
-    &#34;&#34;&#34; Returns the sample entropy
+    &#34;&#34;&#34; Returns the sample entropy of the signal.
 
     Parameters
     ----------
@@ -1095,9 +1083,8 @@ Computer methods and programs in biomedicine 117.3 (2014): 435-447.</p></div>
 <span>def <span class="ident">f_sqi</span></span>(<span>signal, window_size=3, threshold=1e-07)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Detect constant values over a longer period (flat line).
-Commonly caused by sensor failures, which get stuck at a constant level.
-returns percentage of signal that is flat line</p>
+<div class="desc"><p>Returns an SQI that computes percentage of flatness in the signal.
+Constant values over a longer period (flat line) may be caused by sensor failures.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>signal</code></strong> :&ensp;<code>np.array</code></dt>
@@ -1114,9 +1101,8 @@ returns percentage of signal that is flat line</p>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def f_sqi(signal, window_size=3, threshold=1e-7):
-    &#34;&#34;&#34;Detect constant values over a longer period (flat line).
-    Commonly caused by sensor failures, which get stuck at a constant level.
-    returns percentage of signal that is flat line
+    &#34;&#34;&#34;Returns an SQI that computes percentage of flatness in the signal. 
+    Constant values over a longer period (flat line) may be caused by sensor failures.
 
     Parameters
     ----------
@@ -1156,7 +1142,7 @@ returns percentage of signal that is flat line</p>
 <span>def <span class="ident">get_ecg_sqis</span></span>(<span>ecg_raw, ecg_cleaned, peaks, sampling_rate, window)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Returns all ecg features</p>
+<div class="desc"><p>Returns all ECG SQIs.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>ecg_raw</code></strong> :&ensp;<code>np.array</code></dt>
@@ -1181,7 +1167,7 @@ for a total of 21 features</dd>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_ecg_sqis(ecg_raw, ecg_cleaned, peaks, sampling_rate, window):
-    &#34;&#34;&#34; Returns all ecg features
+    &#34;&#34;&#34; Returns all ECG SQIs.
 
     Parameters
     ----------
@@ -1227,7 +1213,7 @@ for a total of 21 features</dd>
 <span>def <span class="ident">get_generic_sqis</span></span>(<span>signal)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Returns SQIs for a generic signal</p>
+<div class="desc"><p>Returns SQIs for a generic signal.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>signal</code></strong> :&ensp;<code>np.array</code></dt>
@@ -1243,7 +1229,7 @@ for a total of 21 features</dd>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_generic_sqis(signal):
-    &#34;&#34;&#34; Returns SQIs for a generic signal
+    &#34;&#34;&#34; Returns SQIs for a generic signal.
 
     Parameters
     ----------
@@ -1273,7 +1259,7 @@ for a total of 21 features</dd>
 <span>def <span class="ident">get_pleth_sqis</span></span>(<span>pleth_raw, pleth_cleaned)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Returns all Pleth sqis</p>
+<div class="desc"><p>Returns all Pleth SQIs.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>pleth_raw</code></strong> :&ensp;<code>np.array</code></dt>
@@ -1292,7 +1278,7 @@ for a total of a1 features</dd>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_pleth_sqis(pleth_raw, pleth_cleaned):
-    &#34;&#34;&#34; Returns all Pleth sqis
+    &#34;&#34;&#34; Returns all Pleth SQIs.
 
     Parameters
     ----------
@@ -1320,7 +1306,7 @@ for a total of a1 features</dd>
 <span>def <span class="ident">hf_sqi</span></span>(<span>ecg_raw, peaks, sampling_rate)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Returns the relative amplitude of high frequency noise</p>
+<div class="desc"><p>Returns a SQI based on the relative amplitude of high frequency noise.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>ecg_raw</code></strong> :&ensp;<code>np.array</code></dt>
@@ -1339,7 +1325,7 @@ Computer methods and programs in biomedicine 117.3 (2014): 435-447.</p></div>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def hf_sqi(ecg_raw, peaks, sampling_rate):
-    &#34;&#34;&#34; Returns the relative amplitude of high frequency noise
+    &#34;&#34;&#34; Returns a SQI based on the relative amplitude of high frequency noise.
 
     Parameters
     ----------
@@ -1420,7 +1406,7 @@ Computer methods and programs in biomedicine 117.3 (2014): 435-447.</p></div>
 </code></dt>
 <dd>
 <div class="desc"><p>Implementation of template matching approach introduced by Orphanidou et al.
-Returns average correlation coefficient (scipy.stats.pearsonr) of the QRS waveforms that ranges from -1 to 1</p>
+Returns the average correlation coefficient (scipy.stats.pearsonr) of the QRS waveforms that ranges from -1 to 1</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>ecg_cleaned</code></strong> :&ensp;<code>np.array</code></dt>
@@ -1440,7 +1426,7 @@ IEEE J. Biomed. Health Informat., vol. 19, no. 3, pp. 832-838, May 2015.</p></di
 </summary>
 <pre><code class="python">def orphanidou2015_sqi(ecg_cleaned, sampling_rate, show=False):
     &#34;&#34;&#34; Implementation of template matching approach introduced by Orphanidou et al. 
-    Returns average correlation coefficient (scipy.stats.pearsonr) of the QRS waveforms that ranges from -1 to 1
+    Returns the average correlation coefficient (scipy.stats.pearsonr) of the QRS waveforms that ranges from -1 to 1
 
     Parameters
     ----------
@@ -1504,7 +1490,7 @@ IEEE J. Biomed. Health Informat., vol. 19, no. 3, pp. 832-838, May 2015.</p></di
 <span>def <span class="ident">p_SQI</span></span>(<span>ecg_cleaned, sampling_rate, window, num_spectrum=[5, 15], dem_spectrum=[5, 40])</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Power Spectrum Distribution of QRS Wave.</p>
+<div class="desc"><p>Returns a SQI based off of the Power Spectrum Distribution of QRS Waveform.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>ecg_cleaned</code></strong> :&ensp;<code>np.array</code></dt>
@@ -1521,7 +1507,7 @@ IEEE J. Biomed. Health Informat., vol. 19, no. 3, pp. 832-838, May 2015.</p></di
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def p_SQI(ecg_cleaned, sampling_rate, window, num_spectrum=[5, 15], dem_spectrum=[5, 40]):
-    &#34;&#34;&#34;Power Spectrum Distribution of QRS Wave.
+    &#34;&#34;&#34;Returns a SQI based off of the Power Spectrum Distribution of QRS Waveform.
 
     Parameters
     ----------
@@ -1558,7 +1544,7 @@ IEEE J. Biomed. Health Informat., vol. 19, no. 3, pp. 832-838, May 2015.</p></di
 <span>def <span class="ident">pca_sqi</span></span>(<span>signal)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Returns a pca SQI of a multivariate time series.</p>
+<div class="desc"><p>Returns a PCA SQI of the input signals.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>signal</code></strong> :&ensp;<code>np.array</code></dt>
@@ -1569,7 +1555,7 @@ IEEE J. Biomed. Health Informat., vol. 19, no. 3, pp. 832-838, May 2015.</p></di
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def pca_sqi(signal):
-    &#34;&#34;&#34; Returns a pca SQI of a multivariate time series.
+    &#34;&#34;&#34; Returns a PCA SQI of the input signals.
 
     Parameters
     ----------
@@ -1587,11 +1573,10 @@ IEEE J. Biomed. Health Informat., vol. 19, no. 3, pp. 832-838, May 2015.</p></di
 <span>def <span class="ident">perfusion_sqi</span></span>(<span>pleth_raw, pleth_cleaned)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Returns perfusion of pleth
-The perfusion index is the ratio of the pulsatile blood flow to the nonpulsatile
+<div class="desc"><p>Returns perfusion of Pleth. The perfusion index is the ratio of the pulsatile blood flow to the nonpulsatile
 or static blood in peripheral tissue. In other words, it is the difference of the
 amount of light absorbed through the pulse of when light is transmitted through
-the finger AC/DC * 100</p>
+the finger. It is calculated as AC/DC * 100</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>pleth_raw</code></strong> :&ensp;<code>np.array</code></dt>
@@ -1604,11 +1589,10 @@ the finger AC/DC * 100</p>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def perfusion_sqi(pleth_raw, pleth_cleaned):
-    &#34;&#34;&#34;Returns perfusion of pleth
-    The perfusion index is the ratio of the pulsatile blood flow to the nonpulsatile 
+    &#34;&#34;&#34;Returns perfusion of Pleth. The perfusion index is the ratio of the pulsatile blood flow to the nonpulsatile 
     or static blood in peripheral tissue. In other words, it is the difference of the 
     amount of light absorbed through the pulse of when light is transmitted through 
-    the finger AC/DC * 100
+    the finger. It is calculated as AC/DC * 100
 
     Parameters
     ----------
@@ -1627,11 +1611,11 @@ the finger AC/DC * 100</p>
 <span>def <span class="ident">pur_sqi</span></span>(<span>signal)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Returns the signal purity of the input
+<div class="desc"><p>Returns the signal purity of the input.
 In the case of a periodic signal with a single dominant frequency,
 it takes the value of one and approaches zero for non-sinusoidal noisy signals.
-antropy.hjorth_params returns 2 floats: mobility, complexity
-Complexity is the value we want</p>
+antropy.hjorth_params returns 2 floats: (mobility, complexity).
+Complexity is the value we want.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>signal</code></strong> :&ensp;<code>np.array</code></dt>
@@ -1642,11 +1626,11 @@ Complexity is the value we want</p>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def pur_sqi(signal):
-    &#34;&#34;&#34; Returns the signal purity of the input
+    &#34;&#34;&#34; Returns the signal purity of the input. 
     In the case of a periodic signal with a single dominant frequency, 
     it takes the value of one and approaches zero for non-sinusoidal noisy signals.
-    antropy.hjorth_params returns 2 floats: mobility, complexity
-    Complexity is the value we want
+    antropy.hjorth_params returns 2 floats: (mobility, complexity).
+    Complexity is the value we want.
 
     Parameters
     ----------
@@ -1660,11 +1644,9 @@ Complexity is the value we want</p>
 <span>def <span class="ident">q_sqi</span></span>(<span>ecg_cleaned, sampling_rate, matching_qrs_frames_tolerance=50)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Matching Degree of R Peak Detection
+<div class="desc"><p>Returns a SQI that measures matching Degree of R Peak Detection.
 Two R wave detection algorithms are compared with their respective number
-of R waves detected.
-* Hamilton
-* SWT (Stationary Wavelet Transform)</p>
+of R waves detected (Hamilton vs Stationary Wavelet Transform).</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>ecg_cleaned</code></strong> :&ensp;<code>np.array</code></dt>
@@ -1679,11 +1661,9 @@ of R waves detected.
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def q_sqi(ecg_cleaned, sampling_rate, matching_qrs_frames_tolerance=50):
-    &#34;&#34;&#34;Matching Degree of R Peak Detection
+    &#34;&#34;&#34;Returns a SQI that measures matching Degree of R Peak Detection. 
     Two R wave detection algorithms are compared with their respective number
-    of R waves detected.
-    * Hamilton
-    * SWT (Stationary Wavelet Transform)
+    of R waves detected (Hamilton vs Stationary Wavelet Transform).
     
     Parameters
     ----------
@@ -1738,7 +1718,7 @@ of R waves detected.
 <span>def <span class="ident">rsd_sqi</span></span>(<span>ecg_cleaned, peaks, sampling_rate)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Returns the relative standard deviation</p>
+<div class="desc"><p>Returns a SQI based on the relative standard deviation.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>ecg_raw</code></strong> :&ensp;<code>np.array</code></dt>
@@ -1757,7 +1737,7 @@ Computer methods and programs in biomedicine 117.3 (2014): 435-447.</p></div>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def rsd_sqi(ecg_cleaned, peaks, sampling_rate):
-    &#34;&#34;&#34; Returns the relative standard deviation
+    &#34;&#34;&#34; Returns a SQI based on the relative standard deviation.
 
     Parameters
     ----------
@@ -1793,7 +1773,7 @@ Computer methods and programs in biomedicine 117.3 (2014): 435-447.</p></div>
 <span>def <span class="ident">s_SQI</span></span>(<span>signal)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Return the skewness of the signal</p>
+<div class="desc"><p>Return the skewness of the signal.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>signal</code></strong> :&ensp;<code>np.array</code></dt>
@@ -1804,7 +1784,7 @@ Computer methods and programs in biomedicine 117.3 (2014): 435-447.</p></div>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def s_SQI(signal):
-    &#34;&#34;&#34;Return the skewness of the signal
+    &#34;&#34;&#34;Return the skewness of the signal.
 
     Parameters
     ----------
@@ -1818,7 +1798,7 @@ Computer methods and programs in biomedicine 117.3 (2014): 435-447.</p></div>
 <span>def <span class="ident">snr_sqi</span></span>(<span>signal_raw, signal_cleaned)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>There are many ways to define SNR, here, we use std of filtered vs std of raw signal</p>
+<div class="desc"><p>Returns the signal to noise ratio (SNR). There are many ways to define SNR, here, we use std of filtered vs std of raw signal.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>signal_raw</code></strong> :&ensp;<code>np.array</code></dt>
@@ -1832,7 +1812,7 @@ Computer methods and programs in biomedicine 117.3 (2014): 435-447.</p></div>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def snr_sqi(signal_raw, signal_cleaned):
-    &#34;&#34;&#34;There are many ways to define SNR, here, we use std of filtered vs std of raw signal
+    &#34;&#34;&#34;Returns the signal to noise ratio (SNR). There are many ways to define SNR, here, we use std of filtered vs std of raw signal.
 
     Parameters
     ----------
@@ -1848,7 +1828,7 @@ Computer methods and programs in biomedicine 117.3 (2014): 435-447.</p></div>
 <span>def <span class="ident">zc_sqi</span></span>(<span>signal)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Returns the zero cross rate</p>
+<div class="desc"><p>Returns the zero crossing rate.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>signal</code></strong> :&ensp;<code>np.array</code></dt>
@@ -1859,7 +1839,7 @@ Computer methods and programs in biomedicine 117.3 (2014): 435-447.</p></div>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def zc_sqi(signal):
-    &#34;&#34;&#34;Returns the zero cross rate
+    &#34;&#34;&#34;Returns the zero crossing rate.
 
     Parameters
     ----------
@@ -1873,7 +1853,8 @@ Computer methods and programs in biomedicine 117.3 (2014): 435-447.</p></div>
 <span>def <span class="ident">zhao2018_SQI</span></span>(<span>ecg_cleaned, sampling_rate)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>extracts several signal quality indexes (SQIs):
+<div class="desc"><p>Returns the zhao2018 output for ECG signal quality prediction.
+The metod extracts several signal quality indexes (SQIs):
 QRS wave power spectrum distribution pSQI, kurtosis kSQI, and baseline relative power basSQI.
 An additional R peak detection match qSQI was originally computed in the paper but left out
 in this algorithm. The indices were originally weighted with a ratio of [0.4, 0.4, 0.1, 0.1] to
@@ -1893,7 +1874,8 @@ the weights have been rearranged to [0.6, 0.2, 0.2] for pSQI, kSQI and basSQI re
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def zhao2018_SQI(ecg_cleaned, sampling_rate):
-    &#34;&#34;&#34;extracts several signal quality indexes (SQIs):
+    &#34;&#34;&#34;Returns the zhao2018 output for ECG signal quality prediction. 
+    The metod extracts several signal quality indexes (SQIs):
     QRS wave power spectrum distribution pSQI, kurtosis kSQI, and baseline relative power basSQI.
     An additional R peak detection match qSQI was originally computed in the paper but left out
     in this algorithm. The indices were originally weighted with a ratio of [0.4, 0.4, 0.1, 0.1] to

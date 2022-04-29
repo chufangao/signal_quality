@@ -11,7 +11,7 @@ import sklearn
 
 def orphanidou2015_sqi(ecg_cleaned, sampling_rate, show=False):
     """ Implementation of template matching approach introduced by Orphanidou et al. 
-    Returns average correlation coefficient (scipy.stats.pearsonr) of the QRS waveforms that ranges from -1 to 1
+    Returns the average correlation coefficient (scipy.stats.pearsonr) of the QRS waveforms that ranges from -1 to 1
 
     Parameters
     ----------
@@ -71,7 +71,7 @@ def orphanidou2015_sqi(ecg_cleaned, sampling_rate, show=False):
     return np.mean(corrcoefs)
 
 def averageQRS_SQI(ecg_cleaned, sampling_rate):
-    """Computes a continuous index of quality of the ECG signal, by interpolating the distance
+    """Computes a continuous index of quality of the ECG signal by interpolating the distance
     of each QRS segment from the average QRS segment present in the data. This index is relative: 
     1 corresponds to heartbeats that are the closest to the average sample and 0 corresponds to 
     the most distant heartbeat from that average sample. Note that 1 does not necessarily means
@@ -104,7 +104,8 @@ def averageQRS_SQI(ecg_cleaned, sampling_rate):
         return np.nan
 
 def zhao2018_SQI(ecg_cleaned, sampling_rate):
-    """extracts several signal quality indexes (SQIs):
+    """Returns the zhao2018 output for ECG signal quality prediction. 
+    The metod extracts several signal quality indexes (SQIs):
     QRS wave power spectrum distribution pSQI, kurtosis kSQI, and baseline relative power basSQI.
     An additional R peak detection match qSQI was originally computed in the paper but left out
     in this algorithm. The indices were originally weighted with a ratio of [0.4, 0.4, 0.1, 0.1] to
@@ -136,7 +137,7 @@ def zhao2018_SQI(ecg_cleaned, sampling_rate):
 
 
 def p_SQI(ecg_cleaned, sampling_rate, window, num_spectrum=[5, 15], dem_spectrum=[5, 40]):
-    """Power Spectrum Distribution of QRS Wave.
+    """Returns a SQI based off of the Power Spectrum Distribution of QRS Waveform.
 
     Parameters
     ----------
@@ -169,7 +170,7 @@ def p_SQI(ecg_cleaned, sampling_rate, window, num_spectrum=[5, 15], dem_spectrum
         return np.nan
 
 def bas_SQI(ecg_cleaned, sampling_rate, window, num_spectrum=[0, 1], dem_spectrum=[0, 40]):
-    """Relative Power in the Baseline.
+    """Returns a SQI that measures Relative Power in the baseline.
 
     Parameters
     ----------
@@ -203,9 +204,9 @@ def bas_SQI(ecg_cleaned, sampling_rate, window, num_spectrum=[0, 1], dem_spectru
         return np.nan
 
 def c_SQI(ecg_cleaned, sampling_rate):
-    """Variability in the R-R Interval
+    """Returns a SQI that measures variability in the R-R Interval. 
     When an artifact is present, the QRS detector underperforms by either
-    missing R-peaks or erroneously identifying noisy peaks as R- peaks. The
+    missing R-peaks or erroneously identifying noisy peaks as Rpeaks. The
     above two problems will lead to a high degree of variability in the
     distribution of R-R intervals.
 
@@ -230,11 +231,9 @@ def c_SQI(ecg_cleaned, sampling_rate):
     return c_sqi_score
 
 def q_sqi(ecg_cleaned, sampling_rate, matching_qrs_frames_tolerance=50):
-    """Matching Degree of R Peak Detection
+    """Returns a SQI that measures matching Degree of R Peak Detection. 
     Two R wave detection algorithms are compared with their respective number
-    of R waves detected.
-    * Hamilton
-    * SWT (Stationary Wavelet Transform)
+    of R waves detected (Hamilton vs Stationary Wavelet Transform).
     
     Parameters
     ----------
@@ -285,8 +284,7 @@ def q_sqi(ecg_cleaned, sampling_rate, matching_qrs_frames_tolerance=50):
     return correlation_coefs
 
 def bs_sqi(ecg_cleaned, peaks, sampling_rate):
-    """SQI for baseline wander check in time domain
-    the higher the wander, the lower the bs_sqi.
+    """Returns a SQI for baseline wander check in time domain. The higher the wander, the lower the bs_sqi.
 
     Parameters
     ----------
@@ -324,8 +322,7 @@ def bs_sqi(ecg_cleaned, peaks, sampling_rate):
     return total
 
 def e_sqi(ecg_cleaned, peaks, sampling_rate):
-    """ returns the relative energy of the signal
-    i.e. sum of energy of detected QRS over energy of entire signal
+    """ Returns a SQI based off of the sum of energy of detected QRS waveforms over energy of entire signal.
 
     Parameters
     ----------
@@ -353,7 +350,7 @@ def e_sqi(ecg_cleaned, peaks, sampling_rate):
     return total / np.dot(ecg_cleaned, ecg_cleaned)
 
 def hf_sqi(ecg_raw, peaks, sampling_rate):
-    """ Returns the relative amplitude of high frequency noise
+    """ Returns a SQI based on the relative amplitude of high frequency noise.
 
     Parameters
     ----------
@@ -391,7 +388,7 @@ def hf_sqi(ecg_raw, peaks, sampling_rate):
     return np.nanmean(total)
 
 def rsd_sqi(ecg_cleaned, peaks, sampling_rate):
-    """ Returns the relative standard deviation
+    """ Returns a SQI based on the relative standard deviation.
 
     Parameters
     ----------
@@ -423,7 +420,7 @@ def rsd_sqi(ecg_cleaned, peaks, sampling_rate):
     return np.nanmean(total)
 
 def get_ecg_sqis(ecg_raw, ecg_cleaned, peaks, sampling_rate, window):
-    """ Returns all ecg features
+    """ Returns all ECG SQIs.
 
     Parameters
     ----------
@@ -467,11 +464,10 @@ def get_ecg_sqis(ecg_raw, ecg_cleaned, peaks, sampling_rate, window):
 ### ===================================================== Relevant Pleth Features =====================================================
 
 def perfusion_sqi(pleth_raw, pleth_cleaned):
-    """Returns perfusion of pleth
-    The perfusion index is the ratio of the pulsatile blood flow to the nonpulsatile 
+    """Returns perfusion of Pleth. The perfusion index is the ratio of the pulsatile blood flow to the nonpulsatile 
     or static blood in peripheral tissue. In other words, it is the difference of the 
     amount of light absorbed through the pulse of when light is transmitted through 
-    the finger AC/DC * 100
+    the finger. It is calculated as AC/DC * 100
 
     Parameters
     ----------
@@ -486,7 +482,7 @@ def perfusion_sqi(pleth_raw, pleth_cleaned):
         return np.nan    
 
 def get_pleth_sqis(pleth_raw, pleth_cleaned):
-    """ Returns all Pleth sqis
+    """ Returns all Pleth SQIs.
 
     Parameters
     ----------
@@ -531,7 +527,7 @@ def k_SQI(signal, kurtosis_method='fisher'):
         return scipy.stats.kurtosis(signal, fisher=False)
 
 def s_SQI(signal):
-    """Return the skewness of the signal
+    """Return the skewness of the signal.
 
     Parameters
     ----------
@@ -541,11 +537,11 @@ def s_SQI(signal):
     return scipy.stats.skew(signal)
 
 def pur_sqi(signal):
-    """ Returns the signal purity of the input
+    """ Returns the signal purity of the input. 
     In the case of a periodic signal with a single dominant frequency, 
     it takes the value of one and approaches zero for non-sinusoidal noisy signals.
-    antropy.hjorth_params returns 2 floats: mobility, complexity
-    Complexity is the value we want
+    antropy.hjorth_params returns 2 floats: (mobility, complexity).
+    Complexity is the value we want.
 
     Parameters
     ----------
@@ -555,7 +551,7 @@ def pur_sqi(signal):
     return antropy.hjorth_params(signal)[1]
 
 def ent_sqi(signal):
-    """ Returns the sample entropy
+    """ Returns the sample entropy of the signal.
 
     Parameters
     ----------
@@ -565,7 +561,7 @@ def ent_sqi(signal):
     return antropy.sample_entropy(signal)
 
 def pca_sqi(signal):
-    """ Returns a pca SQI of a multivariate time series.
+    """ Returns a PCA SQI of the input signals.
 
     Parameters
     ----------
@@ -579,8 +575,7 @@ def pca_sqi(signal):
     return np.sum(pca.singular_values_[:5]) / np.sum(pca.singular_values_)
 
 def autocorr_sqi(signal, lag):
-    """Calculates the autocorrelation of the specified lag, according to the formula [1]
-    [1] https://en.wikipedia.org/wiki/Autocorrelation#Estimation
+    """Calculates the autocorrelation of the specified lag, according to the formula in https://en.wikipedia.org/wiki/Autocorrelation#Estimation
 
     Parameters
     ----------
@@ -613,7 +608,7 @@ def autocorr_sqi(signal, lag):
         return sum_product / ((len(signal) - lag) * v)
 
 def zc_sqi(signal):
-    """Returns the zero cross rate
+    """Returns the zero crossing rate.
 
     Parameters
     ----------
@@ -623,7 +618,7 @@ def zc_sqi(signal):
     return antropy.num_zerocross(signal)
 
 def snr_sqi(signal_raw, signal_cleaned):
-    """There are many ways to define SNR, here, we use std of filtered vs std of raw signal
+    """Returns the signal to noise ratio (SNR). There are many ways to define SNR, here, we use std of filtered vs std of raw signal.
 
     Parameters
     ----------
@@ -635,9 +630,8 @@ def snr_sqi(signal_raw, signal_cleaned):
     return np.std(np.abs(signal_cleaned)) / np.std(np.abs(signal_raw))
 
 def f_sqi(signal, window_size=3, threshold=1e-7):
-    """Detect constant values over a longer period (flat line).
-    Commonly caused by sensor failures, which get stuck at a constant level.
-    returns percentage of signal that is flat line
+    """Returns an SQI that computes percentage of flatness in the signal. 
+    Constant values over a longer period (flat line) may be caused by sensor failures.
 
     Parameters
     ----------
@@ -673,7 +667,7 @@ def f_sqi(signal, window_size=3, threshold=1e-7):
     return np.sum(anomalies) / len(anomalies)
 
 def get_generic_sqis(signal):
-    """ Returns SQIs for a generic signal
+    """ Returns SQIs for a generic signal.
 
     Parameters
     ----------
