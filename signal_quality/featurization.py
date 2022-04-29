@@ -6,19 +6,30 @@ import matplotlib.pyplot as plt
 import scipy.signal
 import scipy.stats
 
-def featurize_ecg_beat(beat_window):
-    ### beat_window is a 1D numpy array (can be of varying length)
-    pass
+# def featurize_ecg_beat(beat_window):
+#     ### beat_window is a 1D numpy array (can be of varying length)
+#     pass
 
 def featurize_ecg(window, sampling_rate, show=False):
-    """
-    window = 1D numpy array (can be of varying length)
-    sampling_rate = the hz of the input ECG signal
-    show = whether to show the rpeak detection plots
-
+    """Featurizes ECG into the following list of features. 
+    Much thanks to Mononito Gowswami (https://github.com/mononitogoswami) for initial code.
     feature_names = ['ECG_HR_median', 'ECG_HR_IQR', 'ECG_HR_slope', 'ECG_SDNN', 'ECG_RMSSD',
         'ECG_VLF', 'ECG_LF', 'ECG_HF', 'ECG_LF_norm', 'ECG_HF_norm', 
         'ECG_LF_HF_ratio', 'ECG_sample_entropy', 'ECG_approx_entropy']
+
+    Parameters
+    ----------
+    window : np.array
+        1D numpy array of filtered ECG 
+    sampling_rate : int
+        The hz of the input ECG signal
+    show : bool
+        Whether to show the rpeak detection plots
+
+    Returns
+    ----------
+    List : list
+        List of 13 ECG features specified above
     """
     
     try:
@@ -58,16 +69,25 @@ def featurize_ecg(window, sampling_rate, show=False):
         return [np.nan]*13
 
 def featurize_pleth(window, pleth_time):
-    """featurizes pleth into 5 features    
-    window = 1D numpy array (can be of varying length)
-    sampling_rate = the hz of the input ECG signal
-    show = whether to show the rpeak detection plots
-
-    returns [Pleth_systolic_amplitudes_median', 'Pleth_systolic_amplitudes_IQR', 'Pleth_systolic_amplitudes_slope', 
+    """Featurizes Pleth into the following features. 
+    Much thanks to Mononito Gowswami (https://github.com/mononitogoswami) for initial code.
+    [Pleth_systolic_amplitudes_median', 'Pleth_systolic_amplitudes_IQR', 'Pleth_systolic_amplitudes_slope', 
         'Pleth_peak_to_peak_interval_median', 'Pleth_peak_to_peak_interval_IQR', 'Pleth_peak_to_peak_interval_slope', 
         'Pleth_pulse_interval_median', 'Pleth_pulse_interval_IQR', 'Pleth_pulse_interval_slope', 
         'Pleth_upstroke_time_median', 'Pleth_upstroke_time_IQR', 'Pleth_upstroke_time_slope', 
         'Pleth_beat_skewness_median', 'Pleth_beat_skewness_IQR', 'Pleth_beat_skewness_slope]
+
+    Parameters
+    ----------
+    window : np.array
+        1D numpy array of filtered Pleth 
+    pleth_time : np.array
+        1D numpy array of timestamps that input window corresponds to
+
+    Returns
+    ----------
+    List : list
+        List of 15 Pleth features specified above    
     """
     ts_feature_names = ['Pleth_systolic_amplitudes', 'Pleth_peak_to_peak_interval', 'Pleth_pulse_interval',
         'Pleth_upstroke_time', 'Pleth_beat_skewness']
