@@ -495,7 +495,7 @@ def get_pleth_sqis(pleth_raw, pleth_cleaned):
     ----------
     List : list
         List of 1 implemented single channel Pleth SQI and 10 time series SQIs
-        for a total of a1 features 
+        for a total of 11 features 
     """
     # pleth_cleaned = nk.ppg_clean(ppg_signal=pleth_raw, sampling_rate=sampling_rate, method='elgendi')
     pleth_sqis = [

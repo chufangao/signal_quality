@@ -13,7 +13,7 @@ import scipy.stats
 def featurize_ecg(window, sampling_rate, show=False):
     """Featurizes ECG into the following list of features. 
     Much thanks to Mononito Gowswami (https://github.com/mononitogoswami) for initial code.
-    feature_names = ['ECG_HR_median', 'ECG_HR_IQR', 'ECG_HR_slope', 'ECG_SDNN', 'ECG_RMSSD',
+    List of calculated features = ['ECG_HR_median', 'ECG_HR_IQR', 'ECG_HR_slope', 'ECG_SDNN', 'ECG_RMSSD',
         'ECG_VLF', 'ECG_LF', 'ECG_HF', 'ECG_LF_norm', 'ECG_HF_norm', 
         'ECG_LF_HF_ratio', 'ECG_sample_entropy', 'ECG_approx_entropy']
 
@@ -71,11 +71,11 @@ def featurize_ecg(window, sampling_rate, show=False):
 def featurize_pleth(window, pleth_time):
     """Featurizes Pleth into the following features. 
     Much thanks to Mononito Gowswami (https://github.com/mononitogoswami) for initial code.
-    [Pleth_systolic_amplitudes_median', 'Pleth_systolic_amplitudes_IQR', 'Pleth_systolic_amplitudes_slope', 
+    List of calculated variables: ['Pleth_systolic_amplitudes_median', 'Pleth_systolic_amplitudes_IQR', 'Pleth_systolic_amplitudes_slope', 
         'Pleth_peak_to_peak_interval_median', 'Pleth_peak_to_peak_interval_IQR', 'Pleth_peak_to_peak_interval_slope', 
         'Pleth_pulse_interval_median', 'Pleth_pulse_interval_IQR', 'Pleth_pulse_interval_slope', 
         'Pleth_upstroke_time_median', 'Pleth_upstroke_time_IQR', 'Pleth_upstroke_time_slope', 
-        'Pleth_beat_skewness_median', 'Pleth_beat_skewness_IQR', 'Pleth_beat_skewness_slope]
+        'Pleth_beat_skewness_median', 'Pleth_beat_skewness_IQR', 'Pleth_beat_skewness_slope']
 
     Parameters
     ----------
