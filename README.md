@@ -3,6 +3,7 @@ Collection of tools to analyze ECG, Plethysmography, and general time-series sig
 
 [**Documentation**](https://chufangao.github.io/signal_quality/) 
 [Github](https://github.com/chufangao/signal_quality/)
+[Example Notebooks](https://github.com/chufangao/signal_quality/tree/main/signal_quality/examples/)
 
 ### Main Submodules
 - **datasets** - Code to load example ECG signal quality datasets, including the The PhysioNet/Computing in Cardiology Challenge 2011 Dataset and the MIT-BIH Arrhythmia Database.
