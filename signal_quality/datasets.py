@@ -1,8 +1,10 @@
+from re import X
 import numpy as np
 import wfdb
 import matplotlib.pyplot as plt
 import biosppy 
 import scipy
+import sklearn
 from tqdm import tqdm
 
 def load_ecg_by_windows(channel, rates, sampling_rate, noise_threshold, 
@@ -207,7 +209,7 @@ def load_mit_bih(data_path='/zfsauton/project/public/chufang/MIT-BIH/', load_met
     
     return output_dict
 
-def load_picc(data_path='/zfsauton/project/public/chufang/PICC/', verbose=True):
+def load_picc(data_path='/zfsauton/project/public/chufang/PICC/', train_test_split=.3, seed=0, verbose=True):
     """ 
     https://physionet.org/content/challenge-2011/1.0.0/
 
@@ -219,17 +221,19 @@ def load_picc(data_path='/zfsauton/project/public/chufang/PICC/', verbose=True):
         
     # np.warnings.filterwarnings('error', category=np.VisibleDeprecationWarning)                  
 
-    data_path='/zfsauton/project/public/chufang/PICC/'
     normal_subjects = open(data_path+'set-a/RECORDS-acceptable', 'r').readlines()
     normal_subjects = [subj.replace('\n','') for subj in normal_subjects]
-    labels = [0.0 for _ in range(len(normal_subjects))]
+    normal_labels = [0.0 for _ in range(len(normal_subjects))]
 
     abnormal_subjects = open(data_path+'set-a/RECORDS-unacceptable', 'r').readlines()
     abnormal_subjects = [subj.replace('\n','') for subj in abnormal_subjects]
-    labels = labels + [1.0 for _ in range(len(abnormal_subjects))]
+    abnormal_labels = [1.0 for _ in range(len(abnormal_subjects))]
+
+    all_subjects = normal_subjects + abnormal_subjects
+    all_labels = normal_labels + abnormal_labels
 
     output_dict = {}
-    for subject, label in tqdm(zip(normal_subjects + abnormal_subjects, labels)):
+    for subject, label in tqdm(zip(all_subjects, all_labels)):
         output_dict[subject] = {}
 
         # Read in the data
@@ -251,7 +255,12 @@ def load_picc(data_path='/zfsauton/project/public/chufang/PICC/', verbose=True):
             chname = record.sig_name[channelid]
             if verbose:
                 print('ECG channel type:', chname)
-            output_dict[subject][chname] = {'data':channel, 'labels':[label]}
-            # savedata = np.array(list(beats[:]), dtype=np.float)
+            output_dict[subject][chname] = {'data':channel, 'labels':label}
     
-    return output_dict
+    train_subjects, test_subjects = sklearn.model_selection.train_test_split(list(output_dict.keys()), test_size=train_test_split, random_state=seed)
+    X_train = np.array([output_dict[subject][channel]['data'] for channel in output_dict[subject].keys() for subject in train_subjects])
+    y_train = np.array([output_dict[subject][channel]['labels'] for channel in output_dict[subject].keys() for subject in train_subjects])
+    X_test = np.array([output_dict[subject][channel]['data'] for channel in output_dict[subject].keys() for subject in test_subjects])
+    y_test = np.array([output_dict[subject][channel]['labels'] for channel in output_dict[subject].keys() for subject in test_subjects])
+
+    return X_train, y_train, X_test, y_test
