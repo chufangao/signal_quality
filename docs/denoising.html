@@ -1,0 +1,1388 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>signal_quality.denoising API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>signal_quality.denoising</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import torch
+from tqdm import tqdm
+import pywt
+import matplotlib.pyplot as plt
+import emd
+import numpy as np
+import scipy
+import sys
+import emd
+import neurokit2 as nk
+import datasets
+
+# print(torch.__version__)
+
+### ===================================================== Neural Networks =====================================================
+
+class Net(torch.nn.Module):
+    def __init__(self, h_sizes=[768, 256, 64, 2], activation=torch.nn.LeakyReLU()):
+        super(Net, self).__init__()
+        &#34;&#34;&#34;
+        Flexible feed forward network over a base encoder. 
+        
+        Parameters
+        ---------- 
+        encoder_model: The base encoder model
+        h_sizes: Linear layer sizes to be used in the MLP
+        activation: Activation function to be use in the MLP. 
+        device: Device to use for training. &#39;cpu&#39; by default.
+        &#34;&#34;&#34;
+
+        self.device = torch.device(&#39;cuda&#39;) if torch.cuda.is_available() else torch.device(&#39;cpu&#39;)
+        self.layers = torch.nn.ModuleList()
+        for k in range(len(h_sizes)-1):
+            self.layers.append(torch.nn.Linear(h_sizes[k], h_sizes[k+1]))
+            self.layers.append(activation)
+            # self.layers.append(torch.nn.Dropout(p=0.5))
+        self.to(self.device)
+    
+    def forward(self, x):
+        for layer in self.layers:
+            x = layer(x)    
+        return x
+
+    def fit(self, x_train, y_train, batch_size=32, epochs=10, criterion=torch.nn.MSELoss(), lr=1e-3, weight_decay=1e-4, shuffle=True, seed=0):
+        assert type(x_train)==np.ndarray and type(y_train)==np.ndarray
+
+        np.random.seed(seed)
+
+        x_train = torch.from_numpy(x_train).float()
+        y_train = torch.from_numpy(y_train).float()
+
+        optimizer = torch.optim.Adam(self.parameters(), lr=lr, weight_decay=weight_decay)
+        print(self.device)
+        for epoch in tqdm(range(epochs)):
+            if shuffle:
+                inds = np.arange(len(x_train))
+                np.random.shuffle(inds)
+                x_train = x_train[inds]
+                y_train = y_train[inds]
+
+            for i in range(0, len(x_train), batch_size):
+                batch_x = x_train[i:i+batch_size].to(self.device)
+                batch_y = y_train[i:i+batch_size].to(self.device)
+                            
+                out = self.forward(batch_x)
+                loss = criterion(out, batch_y)
+
+                optimizer.zero_grad()
+                loss.backward()
+                optimizer.step()
+
+                if i % 10 == 0:
+                    tqdm.write(&#34;loss: {:.6f}&#34;.format(loss.detach().cpu().numpy()))
+
+    def predict(self, x, batch_size=200):
+        with torch.no_grad():
+            x = torch.from_numpy(x).float()
+            out = []
+            
+            for i in range(0, len(x), batch_size):
+                batch_x = x[i:i+batch_size].to(self.device)
+                out.append(self.forward(batch_x).cpu().numpy())
+            return np.concatenate(out)
+
+class LSTMNet(Net):
+    def __init__(self, input_dim, hidden_dim, layer_dim, output_dim=1, activation=torch.nn.LeakyReLU()):
+        super(LSTMNet, self).__init__()
+        &#34;&#34;&#34;
+        Flexible feed forward network over a base encoder. 
+        
+        Parameters
+        ---------- 
+        encoder_model: The base encoder model
+        h_sizes: Linear layer sizes to be used in the MLP
+        activation: Activation function to be use in the MLP. 
+        device: Device to use for training. &#39;cpu&#39; by default.
+        &#34;&#34;&#34;
+        self.layer_dim = layer_dim
+        self.hidden_dim = hidden_dim
+        self.device = &#39;cuda&#39; if torch.cuda.is_available() else &#39;cpu&#39;
+        self.activation = activation
+        
+        self.lstm = torch.nn.LSTM(input_dim, hidden_dim, layer_dim, batch_first=True)
+        self.fc = torch.nn.Linear(hidden_dim, output_dim)
+
+        self.to(self.device)
+
+    def forward(self, x):
+        # Initialize hidden state with zeros
+        h0 = torch.zeros(self.layer_dim, x.size(0), self.hidden_dim).requires_grad_().to(self.device)
+
+        # Initialize cell state
+        c0 = torch.zeros(self.layer_dim, x.size(0), self.hidden_dim).requires_grad_().to(self.device)
+
+        # We need to detach as we are doing truncated backpropagation through time (BPTT)
+        # If we don&#39;t, we&#39;ll backprop all the way to the start even after going through another batch
+        out, (hn, cn) = self.lstm(x, (h0.detach(), c0.detach()))
+        # out, (hn, cn) = self.lstm(x, (h0, c0))
+        # out shape is (batch_size, seq_len, hidden_dim)
+        
+        # Index hidden state of last time step
+        # print(out.shape)
+        out = self.activation(out)
+        out = self.fc(out)
+        # out shape is (batch_size, seq_len, 1)
+        out = out.squeeze()
+        # out shape is (batch_size, seq_len)
+        return out
+ 
+class Conv1DNet(Net):
+    def __init__(self, h_sizes=[6, 768, 256, 64, 1], activation=torch.nn.LeakyReLU()):
+        super(Conv1DNet, self).__init__()
+
+        self.layers = torch.nn.ModuleList()
+        for k in range(len(h_sizes)-1):
+            # self.layers.append(torch.nn.Linear(h_sizes[k], h_sizes[k+1]))
+            self.layers.append(torch.nn.Conv1d(in_channels=h_sizes[k], out_channels=h_sizes[k+1], kernel_size=5, padding=&#39;same&#39;))
+            self.layers.append(activation)
+            if k != len(h_sizes)-1:
+                self.layers.append(torch.nn.BatchNorm1d(h_sizes[k+1]))
+
+            # self.layers.append(torch.nn.Dropout(p=0.5))
+
+        self.device = &#39;cuda&#39; if torch.cuda.is_available() else &#39;cpu&#39;
+        self.to(self.device)
+
+
+    def forward(self, x):
+        x = torch.permute(x, (0,2,1))
+        for layer in self.layers:
+            x = layer(x)    
+        return x.squeeze()
+
+class Conv1DAutoencoderNet(Net):
+    def __init__(self, h_size, input_len, activation=torch.nn.ELU(), kernel_size=8, stride=2):
+        super().__init__()
+        
+        pad = (((stride-1)*input_len-stride+kernel_size) // 2)
+
+        self.encoder = torch.nn.ModuleList()
+        self.encoder.append(torch.nn.Conv1d(in_channels=h_size, out_channels=40, kernel_size=kernel_size, stride=stride, padding=pad))
+        self.encoder.append(activation)
+        self.encoder.append(torch.nn.BatchNorm1d(40))
+        self.encoder.append(torch.nn.Conv1d(in_channels=40, out_channels=20, kernel_size=kernel_size, stride=stride, padding=pad))
+        self.encoder.append(activation)
+        self.encoder.append(torch.nn.BatchNorm1d(20))
+        self.encoder.append(torch.nn.Conv1d(in_channels=20, out_channels=20, kernel_size=kernel_size, stride=stride, padding=pad))
+        self.encoder.append(activation)
+        self.encoder.append(torch.nn.BatchNorm1d(20))
+        self.encoder.append(torch.nn.Conv1d(in_channels=20, out_channels=20, kernel_size=kernel_size, stride=stride, padding=pad))
+        self.encoder.append(activation)
+        self.encoder.append(torch.nn.BatchNorm1d(20))
+        self.encoder.append(torch.nn.Conv1d(in_channels=20, out_channels=40, kernel_size=kernel_size, stride=stride, padding=pad))
+        self.encoder.append(activation)
+        self.encoder.append(torch.nn.BatchNorm1d(40))
+        # self.encoder.append(torch.nn.Conv1d(in_channels=40, out_channels=1, kernel_size=kernel_size, stride=stride, padding=pad))
+        # self.encoder.append(activation)
+        # self.encoder.append(torch.nn.BatchNorm1d(1))
+
+        self.decoder = torch.nn.ModuleList()
+        # self.decoder.append(torch.nn.ConvTranspose1d(in_channels=1, out_channels=2, kernel_size=kernel_size, stride=stride, padding=pad))
+        # self.encoder.append(activation)
+        # self.decoder.append(torch.nn.BatchNorm1d(1))
+        # self.decoder.append(torch.nn.ConvTranspose1d(in_channels=1, out_channels=40, kernel_size=kernel_size, stride=stride, padding=pad))
+        # self.encoder.append(activation)
+        # self.decoder.append(torch.nn.BatchNorm1d(40))
+        self.decoder.append(torch.nn.ConvTranspose1d(in_channels=40, out_channels=20, kernel_size=kernel_size, stride=stride, padding=pad))
+        self.encoder.append(activation)
+        self.decoder.append(torch.nn.BatchNorm1d(20))
+        self.decoder.append(torch.nn.ConvTranspose1d(in_channels=20, out_channels=20, kernel_size=kernel_size, stride=stride, padding=pad))
+        self.encoder.append(activation)
+        self.decoder.append(torch.nn.BatchNorm1d(20))
+        self.decoder.append(torch.nn.ConvTranspose1d(in_channels=20, out_channels=20, kernel_size=kernel_size, stride=stride, padding=pad))
+        self.encoder.append(activation)
+        self.decoder.append(torch.nn.BatchNorm1d(20))
+        self.decoder.append(torch.nn.ConvTranspose1d(in_channels=20, out_channels=40, kernel_size=kernel_size, stride=stride, padding=pad))
+        self.decoder.append(torch.nn.BatchNorm1d(40))
+        self.encoder.append(activation)
+        self.decoder.append(torch.nn.ConvTranspose1d(in_channels=40, out_channels=1, kernel_size=kernel_size, stride=stride, padding=pad))
+
+        self.device = &#39;cuda&#39; if torch.cuda.is_available() else &#39;cpu&#39;
+        self.to(self.device)
+    
+    def forward(self, x):
+
+        x = torch.permute(x, (0,2,1))
+        for layer in self.encoder:
+            x = layer(x)    
+        for layer in self.decoder:
+            x = layer(x)
+
+        return x.squeeze()
+
+### ===================================================== Utility Functions =====================================================
+
+def decompose_signal(signal, wavelet=&#39;db2&#39;):
+    wavelet_levels = pywt.dwt_max_level(len(signal), wavelet)
+    wavelet_levels = max(wavelet_levels - 3, 1)
+
+    coeffs = pywt.wavedec(signal, wavelet=wavelet, level=wavelet_levels)
+
+    # Detail coefficients at each decomposition level
+    dcoeffs = coeffs[1:]
+
+    # Estimate the noise via the method in [2]_
+    detail_coeffs = dcoeffs[-1]
+
+    # 75th quantile of the underlying, symmetric noise distribution
+    denom = scipy.stats.norm.ppf(0.75)
+    sigma = np.median(np.abs(detail_coeffs)) / denom
+
+    # # The VisuShrink thresholds from donoho et al.
+    # threshold =  sigma*np.sqrt(2*np.log(len(signal)))
+    # denoised_detail = [pywt.threshold(data=level, value=threshold, mode=&#39;soft&#39;) for level in dcoeffs]
+    # # print([c.shape[0] for c in denoised_detail], np.sum([c.shape[0] for c in denoised_detail]))
+    denoised_detail = [scipy.signal.resample(x=c, num=len(signal)) for c in coeffs]
+    # # print(np.stack(denoised_detail, axis=-1).shape)
+    denoised_detail = np.stack(denoised_detail, axis=-1)
+
+    return np.concatenate([denoised_detail, signal[:,np.newaxis]], axis=1)
+
+def rescale_signal(x):
+    r = np.max(x) - np.min(x)
+    if r == 0:
+        return np.zeros_like(x)
+    else:
+        return 2*(x-np.min(x)) / r - 1
+
+def load_data(mitdb_dict, nstdb_extra_dict, window=512, train_end_ind=100000):
+    train_x = []
+    train_y = []
+    train_noise_type = []
+    test_x = []
+    test_y = []
+    test_noise_type = []
+    
+    # print(len(mitdb_dict[subject][&#39;MLII&#39;][&#39;data&#39;]))
+
+    for subject in  [&#39;118&#39;, &#39;119&#39;]:
+        for noise_type in [&#39;em&#39;, &#39;ma&#39;, &#39;bw&#39;, &#39;gn&#39;, &#39;all&#39;]:
+        # for noise_type in [&#39;gn&#39;]:
+            # for dB in [&#39;_6&#39;,&#39;00&#39;,&#39;06&#39;,&#39;12&#39;,&#39;18&#39;,&#39;24&#39;]:
+            for dB in [&#39;_6&#39;,&#39;00&#39;,&#39;06&#39;,&#39;12&#39;,&#39;18&#39;,&#39;24&#39;]:
+                orig = mitdb_dict[subject][&#39;MLII&#39;][&#39;data&#39;]
+                orig = rescale_signal(orig)
+                noisy = nstdb_extra_dict[subject+noise_type+dB][&#39;MLII&#39;][&#39;data&#39;]
+                noisy = rescale_signal(noisy)
+
+                for i in range(0, train_end_ind, window):
+                    train_x.append(noisy[i:i+window])
+                    train_y.append(orig[i:i+window])
+                    train_noise_type.append(noise_type+dB)
+
+                    test_x.append(noisy[train_end_ind+i:train_end_ind+i+window])
+                    test_y.append(orig[train_end_ind+i:train_end_ind+i+window])
+                    test_noise_type.append(noise_type+dB)
+
+    train_x = np.array(train_x)
+    train_y = np.array(train_y)
+    train_noise_type = np.array(train_noise_type)
+
+    test_x = np.array(test_x)
+    test_y = np.array(test_y)
+    test_noise_type = np.array(test_noise_type)
+
+    return train_x, train_y, train_noise_type, test_x, test_y, test_noise_type
+
+
+def denoise_wavelet(signal, wavelet=&#39;db4&#39;, wavelet_levels=None, mode=&#39;soft&#39;, thesh_method=&#39;donoho&#39;, visualize=False):
+    &#34;&#34;&#34;Based off of the official skimage implementation: 
+    https://scikit-image.org/docs/stable/api/skimage.restoration.html#skimage.restoration.denoise_wavelet
+    
+    &gt; import skimage
+    &gt; temp1 = skimage.restoration.denoise_wavelet(image=example_signal, sigma=None, wavelet=&#39;db4&#39;, mode=&#39;soft&#39;, 
+    &gt;                                             wavelet_levels=None, convert2ycbcr=False, method=&#39;VisuShrink&#39;, 
+    &gt;                                             rescale_sigma=True, channel_axis=None)
+    &gt; temp2 = denoise_wavelet(example_signal)
+    &gt; print(np.all(temp1==temp2)) # returns True
+    &#34;&#34;&#34;
+    if wavelet_levels is None:
+        wavelet_levels = pywt.dwt_max_level(len(signal), wavelet)
+        wavelet_levels = max(wavelet_levels - 3, 1)
+
+    coeffs = pywt.wavedec(signal, wavelet=wavelet, level=wavelet_levels)
+
+    # Detail coefficients at each decomposition level
+    dcoeffs = coeffs[1:]
+
+    # Estimate the noise via the method in [2]_
+    detail_coeffs = dcoeffs[-1]
+
+    if thesh_method == &#39;donoho&#39;:
+        # 75th quantile of the underlying, symmetric noise distribution
+        denom = scipy.stats.norm.ppf(0.75)
+        sigma = np.median(np.abs(detail_coeffs)) / denom
+        
+        # The VisuShrink thresholds from donoho et al.
+        threshold =  sigma*np.sqrt(2*np.log(len(signal)))
+    else:
+        raise NotImplementedError
+
+    if visualize:
+        plt.figure(figsize=(15,10))
+        for i, level in enumerate(dcoeffs):
+            plt.subplot(wavelet_levels, 1, i+1)
+            plt.plot(level)
+            # plt.plot(pywt.threshold(data=level, value=threshold, mode=mode))
+        plt.show()
+
+    denoised_detail = [pywt.threshold(data=level, value=threshold, mode=mode) for level in dcoeffs]
+
+    denoised_coeffs = [coeffs[0]] + denoised_detail
+    return pywt.waverec(denoised_coeffs, wavelet)
+
+
+def denoise_emd(signal, sample_rate, visualize=False, P=5, beta=30):
+    &#34;&#34;&#34;Follows the approach as defined by Weng et al.
+    &#34;&#34;&#34;
+    # Predefine P as opposed to t-test
+
+    ecg_cleaned = nk.ecg_clean(signal, sampling_rate=sample_rate, method=&#34;neurokit&#34;)
+    signals, info = nk.ecg_peaks(ecg_cleaned, sampling_rate=sample_rate, method=&#39;kalidas2017&#39;)
+    rpeak_mask = signals.values.flatten()
+    rpeaks = info[&#39;ECG_R_Peaks&#39;]
+
+    # print(rpeaks)
+    # plt.show()
+    # print(len(rpeaks), len(waves_dwt[&#39;ECG_R_Offsets&#39;]), len(waves_dwt[&#39;ECG_R_Onsets&#39;]))
+    try:
+        signal_dwt, waves_dwt = nk.ecg_delineate(ecg_cleaned, rpeaks, sampling_rate=sample_rate, method=&#34;dwt&#34;, show=visualize, show_type=&#39;bounds_R&#39;)
+        flat_window = int(np.nanmean(np.array(waves_dwt[&#39;ECG_R_Offsets&#39;])-np.array(waves_dwt[&#39;ECG_R_Onsets&#39;]))/2)+1
+    except Exception as e:
+        return signal
+
+    imf = emd.sift.sift(signal)
+    if visualize:
+        emd.plotting.plot_imfs(imf)
+
+    reconstruction = np.zeros_like(signal)
+    P = min(P, imf.shape[1]-1)
+    for i in range(P):
+        tukey_window = scipy.signal.windows.tukey(M=int(flat_window + flat_window * 2*beta * (i+1)*.01))
+        mask = np.convolve(rpeak_mask, tukey_window, mode=&#39;same&#39;)
+        reconstruction += mask * imf[:,i]
+    
+    if P &lt;= imf.shape[1]:
+        reconstruction += imf[:,P:].sum(axis=1)
+
+    return reconstruction
+
+def denoise_nn(signal, model):
+    # assume that input signals are of shape (n,512)
+    if len(signal.shape) == 1 and len(signal) == 512:
+        signals = [decompose_signal(rescale_signal(signal))]
+        return model.predict(np.array(signals))
+    elif len(signal.shape) == 2 and signal.shape[1] == 512:
+        signals = [decompose_signal(rescale_signal(signal_)) for signal_ in signal]
+        return model.predict(np.array(signals))
+    else:
+        raise NotImplementedError
+ 
+def get_power(signal):
+    return np.mean(np.power(signal, 2))
+
+def calc_snr(signal, noise):
+    signal_avg_watts = get_power(signal)
+    noise_avg_watts = get_power(noise)
+
+    return 10*(np.log10(signal_avg_watts) - np.log10(noise_avg_watts))
+
+def calc_snr_ecg(signal, noise, sampling_rate):
+    peaks = nk.ecg_peaks(signal, sampling_rate=sampling_rate, method=&#39;kalidas2017&#39;)[1][&#39;ECG_R_Peaks&#39;]
+    window = int(sampling_rate*.05)
+    peak_ranges = np.array([np.ptp(signal[max(0, peak-window):min(len(signal), peak+window)]) for peak in peaks])
+    peak_ranges = peak_ranges[(np.percentile(peak_ranges, 5)&lt;peak_ranges) &amp; (peak_ranges&lt;np.percentile(peak_ranges, 95))]
+    S = np.mean(peaks)**2 / 8
+
+    noise_windows = [noise[i:i+sampling_rate] for i in range(0, len(noise), sampling_rate)]
+    noise_rmsds = np.array([np.mean(np.power(w-w.mean(),2)) for w in noise_windows])
+    noise_rmsds = noise_rmsds[(np.percentile(noise_rmsds, 5)&lt;noise_rmsds) &amp; (noise_rmsds&lt;np.percentile(noise_rmsds, 95))]
+    N = np.mean(noise_rmsds)**2
+    
+    return 10*(np.log10(S) - np.log10(N))
+
+
+### ===================================================== Driver for training NNs =====================================================
+# import argparse
+
+if __name__==&#34;__main__&#34;:
+    mitdb_dict = datasets.load_mitdb(data_path=&#39;/zfsauton/project/public/chufang/mitdb/&#39;, verbose=False)
+    nstdb_extra_dict = datasets.load_nstdb_extra(nstdb_path=&#39;/zfsauton/project/public/chufang/nstdb/&#39;, mitdb_path=&#39;/zfsauton/project/public/chufang/mitdb/&#39;, verbose=False, downsampled_sampling_rate=125)
+    train_x, train_y, train_noise_type, test_x, test_y, test_noise_type = load_data(mitdb_dict, nstdb_extra_dict, window=512)
+    train_x = np.array([decompose_signal(x_) for x_ in train_x])
+    test_x = np.array([decompose_signal(x_) for x_ in test_x])
+    print(train_x.shape, train_y.shape, test_x.shape, test_y.shape)
+
+    train = False
+
+    ## Training LSTM ---------------------------------------------------------------
+    torch.manual_seed(0)
+    np.random.seed(0)
+    lstm = LSTMNet(input_dim=6, hidden_dim=64, layer_dim=1)
+
+    if train:
+        lstm.fit(train_x, train_y, epochs=30, batch_size=16, criterion=torch.nn.MSELoss(reduction=&#39;mean&#39;))
+        torch.save(lstm.cpu().state_dict(), &#39;denoising_models/lstm.pt&#39;)
+    else:
+        lstm.load_state_dict(torch.load(&#39;denoising_models/lstm.pt&#39;))
+    
+    predictions = lstm.predict(test_x) 
+    np.save(&#39;denoising_models/lstm_preds.npy&#39;, predictions)
+
+    ## Training 1dCNN ---------------------------------------------------------------
+    torch.manual_seed(0)
+    np.random.seed(0)
+    cnn = Conv1DNet(h_sizes=[6, 256, 128, 64, 64, 1], activation=torch.nn.LeakyReLU())
+
+    if train:
+        cnn.fit(train_x, train_y, epochs=30, batch_size=16, criterion=torch.nn.MSELoss(reduction=&#39;mean&#39;))
+        torch.save(cnn.cpu().state_dict(), &#39;denoising_models/cnn.pt&#39;)
+    else:
+        cnn.load_state_dict(torch.load(&#39;denoising_models/cnn.pt&#39;))
+
+    predictions = cnn.predict(test_x) 
+    np.save(&#39;denoising_models/cnn_preds.npy&#39;, predictions)
+
+    ## Training 1dCNNAutoencoder ---------------------------------------------------------------
+    torch.manual_seed(0)
+    np.random.seed(0)
+    cnn = Conv1DAutoencoderNet(h_size=6, input_len=train_x.shape[1], activation=torch.nn.LeakyReLU(), kernel_size=8, stride=2)
+
+    if train:
+        cnn.fit(train_x, train_y, epochs=30, batch_size=16, criterion=torch.nn.MSELoss(reduction=&#39;mean&#39;))
+        torch.save(cnn.cpu().state_dict(), &#39;denoising_models/cnnae.pt&#39;)
+    else:
+        cnn.load_state_dict(torch.load(&#39;denoising_models/cnnae.pt&#39;))
+
+    predictions = cnn.predict(test_x)
+    np.save(&#39;denoising_models/cnnae_preds.npy&#39;, predictions)
+    
+    </code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="signal_quality.denoising.calc_snr"><code class="name flex">
+<span>def <span class="ident">calc_snr</span></span>(<span>signal, noise)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def calc_snr(signal, noise):
+    signal_avg_watts = get_power(signal)
+    noise_avg_watts = get_power(noise)
+
+    return 10*(np.log10(signal_avg_watts) - np.log10(noise_avg_watts))</code></pre>
+</details>
+</dd>
+<dt id="signal_quality.denoising.calc_snr_ecg"><code class="name flex">
+<span>def <span class="ident">calc_snr_ecg</span></span>(<span>signal, noise, sampling_rate)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def calc_snr_ecg(signal, noise, sampling_rate):
+    peaks = nk.ecg_peaks(signal, sampling_rate=sampling_rate, method=&#39;kalidas2017&#39;)[1][&#39;ECG_R_Peaks&#39;]
+    window = int(sampling_rate*.05)
+    peak_ranges = np.array([np.ptp(signal[max(0, peak-window):min(len(signal), peak+window)]) for peak in peaks])
+    peak_ranges = peak_ranges[(np.percentile(peak_ranges, 5)&lt;peak_ranges) &amp; (peak_ranges&lt;np.percentile(peak_ranges, 95))]
+    S = np.mean(peaks)**2 / 8
+
+    noise_windows = [noise[i:i+sampling_rate] for i in range(0, len(noise), sampling_rate)]
+    noise_rmsds = np.array([np.mean(np.power(w-w.mean(),2)) for w in noise_windows])
+    noise_rmsds = noise_rmsds[(np.percentile(noise_rmsds, 5)&lt;noise_rmsds) &amp; (noise_rmsds&lt;np.percentile(noise_rmsds, 95))]
+    N = np.mean(noise_rmsds)**2
+    
+    return 10*(np.log10(S) - np.log10(N))</code></pre>
+</details>
+</dd>
+<dt id="signal_quality.denoising.decompose_signal"><code class="name flex">
+<span>def <span class="ident">decompose_signal</span></span>(<span>signal, wavelet='db2')</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def decompose_signal(signal, wavelet=&#39;db2&#39;):
+    wavelet_levels = pywt.dwt_max_level(len(signal), wavelet)
+    wavelet_levels = max(wavelet_levels - 3, 1)
+
+    coeffs = pywt.wavedec(signal, wavelet=wavelet, level=wavelet_levels)
+
+    # Detail coefficients at each decomposition level
+    dcoeffs = coeffs[1:]
+
+    # Estimate the noise via the method in [2]_
+    detail_coeffs = dcoeffs[-1]
+
+    # 75th quantile of the underlying, symmetric noise distribution
+    denom = scipy.stats.norm.ppf(0.75)
+    sigma = np.median(np.abs(detail_coeffs)) / denom
+
+    # # The VisuShrink thresholds from donoho et al.
+    # threshold =  sigma*np.sqrt(2*np.log(len(signal)))
+    # denoised_detail = [pywt.threshold(data=level, value=threshold, mode=&#39;soft&#39;) for level in dcoeffs]
+    # # print([c.shape[0] for c in denoised_detail], np.sum([c.shape[0] for c in denoised_detail]))
+    denoised_detail = [scipy.signal.resample(x=c, num=len(signal)) for c in coeffs]
+    # # print(np.stack(denoised_detail, axis=-1).shape)
+    denoised_detail = np.stack(denoised_detail, axis=-1)
+
+    return np.concatenate([denoised_detail, signal[:,np.newaxis]], axis=1)</code></pre>
+</details>
+</dd>
+<dt id="signal_quality.denoising.denoise_emd"><code class="name flex">
+<span>def <span class="ident">denoise_emd</span></span>(<span>signal, sample_rate, visualize=False, P=5, beta=30)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Follows the approach as defined by Weng et al.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def denoise_emd(signal, sample_rate, visualize=False, P=5, beta=30):
+    &#34;&#34;&#34;Follows the approach as defined by Weng et al.
+    &#34;&#34;&#34;
+    # Predefine P as opposed to t-test
+
+    ecg_cleaned = nk.ecg_clean(signal, sampling_rate=sample_rate, method=&#34;neurokit&#34;)
+    signals, info = nk.ecg_peaks(ecg_cleaned, sampling_rate=sample_rate, method=&#39;kalidas2017&#39;)
+    rpeak_mask = signals.values.flatten()
+    rpeaks = info[&#39;ECG_R_Peaks&#39;]
+
+    # print(rpeaks)
+    # plt.show()
+    # print(len(rpeaks), len(waves_dwt[&#39;ECG_R_Offsets&#39;]), len(waves_dwt[&#39;ECG_R_Onsets&#39;]))
+    try:
+        signal_dwt, waves_dwt = nk.ecg_delineate(ecg_cleaned, rpeaks, sampling_rate=sample_rate, method=&#34;dwt&#34;, show=visualize, show_type=&#39;bounds_R&#39;)
+        flat_window = int(np.nanmean(np.array(waves_dwt[&#39;ECG_R_Offsets&#39;])-np.array(waves_dwt[&#39;ECG_R_Onsets&#39;]))/2)+1
+    except Exception as e:
+        return signal
+
+    imf = emd.sift.sift(signal)
+    if visualize:
+        emd.plotting.plot_imfs(imf)
+
+    reconstruction = np.zeros_like(signal)
+    P = min(P, imf.shape[1]-1)
+    for i in range(P):
+        tukey_window = scipy.signal.windows.tukey(M=int(flat_window + flat_window * 2*beta * (i+1)*.01))
+        mask = np.convolve(rpeak_mask, tukey_window, mode=&#39;same&#39;)
+        reconstruction += mask * imf[:,i]
+    
+    if P &lt;= imf.shape[1]:
+        reconstruction += imf[:,P:].sum(axis=1)
+
+    return reconstruction</code></pre>
+</details>
+</dd>
+<dt id="signal_quality.denoising.denoise_nn"><code class="name flex">
+<span>def <span class="ident">denoise_nn</span></span>(<span>signal, model)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def denoise_nn(signal, model):
+    # assume that input signals are of shape (n,512)
+    if len(signal.shape) == 1 and len(signal) == 512:
+        signals = [decompose_signal(rescale_signal(signal))]
+        return model.predict(np.array(signals))
+    elif len(signal.shape) == 2 and signal.shape[1] == 512:
+        signals = [decompose_signal(rescale_signal(signal_)) for signal_ in signal]
+        return model.predict(np.array(signals))
+    else:
+        raise NotImplementedError</code></pre>
+</details>
+</dd>
+<dt id="signal_quality.denoising.denoise_wavelet"><code class="name flex">
+<span>def <span class="ident">denoise_wavelet</span></span>(<span>signal, wavelet='db4', wavelet_levels=None, mode='soft', thesh_method='donoho', visualize=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Based off of the official skimage implementation:
+<a href="https://scikit-image.org/docs/stable/api/skimage.restoration.html#skimage.restoration.denoise_wavelet">https://scikit-image.org/docs/stable/api/skimage.restoration.html#skimage.restoration.denoise_wavelet</a></p>
+<blockquote>
+<p>import skimage
+temp1 = skimage.restoration.denoise_wavelet(image=example_signal, sigma=None, wavelet='db4', mode='soft',
+wavelet_levels=None, convert2ycbcr=False, method='VisuShrink',
+rescale_sigma=True, channel_axis=None)
+temp2 = denoise_wavelet(example_signal)
+print(np.all(temp1==temp2)) # returns True</p>
+</blockquote></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def denoise_wavelet(signal, wavelet=&#39;db4&#39;, wavelet_levels=None, mode=&#39;soft&#39;, thesh_method=&#39;donoho&#39;, visualize=False):
+    &#34;&#34;&#34;Based off of the official skimage implementation: 
+    https://scikit-image.org/docs/stable/api/skimage.restoration.html#skimage.restoration.denoise_wavelet
+    
+    &gt; import skimage
+    &gt; temp1 = skimage.restoration.denoise_wavelet(image=example_signal, sigma=None, wavelet=&#39;db4&#39;, mode=&#39;soft&#39;, 
+    &gt;                                             wavelet_levels=None, convert2ycbcr=False, method=&#39;VisuShrink&#39;, 
+    &gt;                                             rescale_sigma=True, channel_axis=None)
+    &gt; temp2 = denoise_wavelet(example_signal)
+    &gt; print(np.all(temp1==temp2)) # returns True
+    &#34;&#34;&#34;
+    if wavelet_levels is None:
+        wavelet_levels = pywt.dwt_max_level(len(signal), wavelet)
+        wavelet_levels = max(wavelet_levels - 3, 1)
+
+    coeffs = pywt.wavedec(signal, wavelet=wavelet, level=wavelet_levels)
+
+    # Detail coefficients at each decomposition level
+    dcoeffs = coeffs[1:]
+
+    # Estimate the noise via the method in [2]_
+    detail_coeffs = dcoeffs[-1]
+
+    if thesh_method == &#39;donoho&#39;:
+        # 75th quantile of the underlying, symmetric noise distribution
+        denom = scipy.stats.norm.ppf(0.75)
+        sigma = np.median(np.abs(detail_coeffs)) / denom
+        
+        # The VisuShrink thresholds from donoho et al.
+        threshold =  sigma*np.sqrt(2*np.log(len(signal)))
+    else:
+        raise NotImplementedError
+
+    if visualize:
+        plt.figure(figsize=(15,10))
+        for i, level in enumerate(dcoeffs):
+            plt.subplot(wavelet_levels, 1, i+1)
+            plt.plot(level)
+            # plt.plot(pywt.threshold(data=level, value=threshold, mode=mode))
+        plt.show()
+
+    denoised_detail = [pywt.threshold(data=level, value=threshold, mode=mode) for level in dcoeffs]
+
+    denoised_coeffs = [coeffs[0]] + denoised_detail
+    return pywt.waverec(denoised_coeffs, wavelet)</code></pre>
+</details>
+</dd>
+<dt id="signal_quality.denoising.get_power"><code class="name flex">
+<span>def <span class="ident">get_power</span></span>(<span>signal)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_power(signal):
+    return np.mean(np.power(signal, 2))</code></pre>
+</details>
+</dd>
+<dt id="signal_quality.denoising.load_data"><code class="name flex">
+<span>def <span class="ident">load_data</span></span>(<span>mitdb_dict, nstdb_extra_dict, window=512, train_end_ind=100000)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def load_data(mitdb_dict, nstdb_extra_dict, window=512, train_end_ind=100000):
+    train_x = []
+    train_y = []
+    train_noise_type = []
+    test_x = []
+    test_y = []
+    test_noise_type = []
+    
+    # print(len(mitdb_dict[subject][&#39;MLII&#39;][&#39;data&#39;]))
+
+    for subject in  [&#39;118&#39;, &#39;119&#39;]:
+        for noise_type in [&#39;em&#39;, &#39;ma&#39;, &#39;bw&#39;, &#39;gn&#39;, &#39;all&#39;]:
+        # for noise_type in [&#39;gn&#39;]:
+            # for dB in [&#39;_6&#39;,&#39;00&#39;,&#39;06&#39;,&#39;12&#39;,&#39;18&#39;,&#39;24&#39;]:
+            for dB in [&#39;_6&#39;,&#39;00&#39;,&#39;06&#39;,&#39;12&#39;,&#39;18&#39;,&#39;24&#39;]:
+                orig = mitdb_dict[subject][&#39;MLII&#39;][&#39;data&#39;]
+                orig = rescale_signal(orig)
+                noisy = nstdb_extra_dict[subject+noise_type+dB][&#39;MLII&#39;][&#39;data&#39;]
+                noisy = rescale_signal(noisy)
+
+                for i in range(0, train_end_ind, window):
+                    train_x.append(noisy[i:i+window])
+                    train_y.append(orig[i:i+window])
+                    train_noise_type.append(noise_type+dB)
+
+                    test_x.append(noisy[train_end_ind+i:train_end_ind+i+window])
+                    test_y.append(orig[train_end_ind+i:train_end_ind+i+window])
+                    test_noise_type.append(noise_type+dB)
+
+    train_x = np.array(train_x)
+    train_y = np.array(train_y)
+    train_noise_type = np.array(train_noise_type)
+
+    test_x = np.array(test_x)
+    test_y = np.array(test_y)
+    test_noise_type = np.array(test_noise_type)
+
+    return train_x, train_y, train_noise_type, test_x, test_y, test_noise_type</code></pre>
+</details>
+</dd>
+<dt id="signal_quality.denoising.rescale_signal"><code class="name flex">
+<span>def <span class="ident">rescale_signal</span></span>(<span>x)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def rescale_signal(x):
+    r = np.max(x) - np.min(x)
+    if r == 0:
+        return np.zeros_like(x)
+    else:
+        return 2*(x-np.min(x)) / r - 1</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="signal_quality.denoising.Conv1DAutoencoderNet"><code class="flex name class">
+<span>class <span class="ident">Conv1DAutoencoderNet</span></span>
+<span>(</span><span>h_size, input_len, activation=ELU(alpha=1.0), kernel_size=8, stride=2)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Base class for all neural network modules.</p>
+<p>Your models should also subclass this class.</p>
+<p>Modules can also contain other Modules, allowing to nest them in
+a tree structure. You can assign the submodules as regular attributes::</p>
+<pre><code>import torch.nn as nn
+import torch.nn.functional as F
+
+class Model(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.conv1 = nn.Conv2d(1, 20, 5)
+        self.conv2 = nn.Conv2d(20, 20, 5)
+
+    def forward(self, x):
+        x = F.relu(self.conv1(x))
+        return F.relu(self.conv2(x))
+</code></pre>
+<p>Submodules assigned in this way will be registered, and will have their
+parameters converted too when you call :meth:<code>to</code>, etc.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As per the example above, an <code>__init__()</code> call to the parent class
+must be made before assignment on the child.</p>
+</div>
+<p>:ivar training: Boolean represents whether this module is in training or
+evaluation mode.
+:vartype training: bool</p>
+<p>Initializes internal Module state, shared by both nn.Module and ScriptModule.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Conv1DAutoencoderNet(Net):
+    def __init__(self, h_size, input_len, activation=torch.nn.ELU(), kernel_size=8, stride=2):
+        super().__init__()
+        
+        pad = (((stride-1)*input_len-stride+kernel_size) // 2)
+
+        self.encoder = torch.nn.ModuleList()
+        self.encoder.append(torch.nn.Conv1d(in_channels=h_size, out_channels=40, kernel_size=kernel_size, stride=stride, padding=pad))
+        self.encoder.append(activation)
+        self.encoder.append(torch.nn.BatchNorm1d(40))
+        self.encoder.append(torch.nn.Conv1d(in_channels=40, out_channels=20, kernel_size=kernel_size, stride=stride, padding=pad))
+        self.encoder.append(activation)
+        self.encoder.append(torch.nn.BatchNorm1d(20))
+        self.encoder.append(torch.nn.Conv1d(in_channels=20, out_channels=20, kernel_size=kernel_size, stride=stride, padding=pad))
+        self.encoder.append(activation)
+        self.encoder.append(torch.nn.BatchNorm1d(20))
+        self.encoder.append(torch.nn.Conv1d(in_channels=20, out_channels=20, kernel_size=kernel_size, stride=stride, padding=pad))
+        self.encoder.append(activation)
+        self.encoder.append(torch.nn.BatchNorm1d(20))
+        self.encoder.append(torch.nn.Conv1d(in_channels=20, out_channels=40, kernel_size=kernel_size, stride=stride, padding=pad))
+        self.encoder.append(activation)
+        self.encoder.append(torch.nn.BatchNorm1d(40))
+        # self.encoder.append(torch.nn.Conv1d(in_channels=40, out_channels=1, kernel_size=kernel_size, stride=stride, padding=pad))
+        # self.encoder.append(activation)
+        # self.encoder.append(torch.nn.BatchNorm1d(1))
+
+        self.decoder = torch.nn.ModuleList()
+        # self.decoder.append(torch.nn.ConvTranspose1d(in_channels=1, out_channels=2, kernel_size=kernel_size, stride=stride, padding=pad))
+        # self.encoder.append(activation)
+        # self.decoder.append(torch.nn.BatchNorm1d(1))
+        # self.decoder.append(torch.nn.ConvTranspose1d(in_channels=1, out_channels=40, kernel_size=kernel_size, stride=stride, padding=pad))
+        # self.encoder.append(activation)
+        # self.decoder.append(torch.nn.BatchNorm1d(40))
+        self.decoder.append(torch.nn.ConvTranspose1d(in_channels=40, out_channels=20, kernel_size=kernel_size, stride=stride, padding=pad))
+        self.encoder.append(activation)
+        self.decoder.append(torch.nn.BatchNorm1d(20))
+        self.decoder.append(torch.nn.ConvTranspose1d(in_channels=20, out_channels=20, kernel_size=kernel_size, stride=stride, padding=pad))
+        self.encoder.append(activation)
+        self.decoder.append(torch.nn.BatchNorm1d(20))
+        self.decoder.append(torch.nn.ConvTranspose1d(in_channels=20, out_channels=20, kernel_size=kernel_size, stride=stride, padding=pad))
+        self.encoder.append(activation)
+        self.decoder.append(torch.nn.BatchNorm1d(20))
+        self.decoder.append(torch.nn.ConvTranspose1d(in_channels=20, out_channels=40, kernel_size=kernel_size, stride=stride, padding=pad))
+        self.decoder.append(torch.nn.BatchNorm1d(40))
+        self.encoder.append(activation)
+        self.decoder.append(torch.nn.ConvTranspose1d(in_channels=40, out_channels=1, kernel_size=kernel_size, stride=stride, padding=pad))
+
+        self.device = &#39;cuda&#39; if torch.cuda.is_available() else &#39;cpu&#39;
+        self.to(self.device)
+    
+    def forward(self, x):
+
+        x = torch.permute(x, (0,2,1))
+        for layer in self.encoder:
+            x = layer(x)    
+        for layer in self.decoder:
+            x = layer(x)
+
+        return x.squeeze()</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="signal_quality.denoising.Net" href="#signal_quality.denoising.Net">Net</a></li>
+<li>torch.nn.modules.module.Module</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="signal_quality.denoising.Conv1DAutoencoderNet.dump_patches"><code class="name">var <span class="ident">dump_patches</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="signal_quality.denoising.Conv1DAutoencoderNet.training"><code class="name">var <span class="ident">training</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="signal_quality.denoising.Net" href="#signal_quality.denoising.Net">Net</a></b></code>:
+<ul class="hlist">
+<li><code><a title="signal_quality.denoising.Net.forward" href="#signal_quality.denoising.Net.forward">forward</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="signal_quality.denoising.Conv1DNet"><code class="flex name class">
+<span>class <span class="ident">Conv1DNet</span></span>
+<span>(</span><span>h_sizes=[6, 768, 256, 64, 1], activation=LeakyReLU(negative_slope=0.01))</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Base class for all neural network modules.</p>
+<p>Your models should also subclass this class.</p>
+<p>Modules can also contain other Modules, allowing to nest them in
+a tree structure. You can assign the submodules as regular attributes::</p>
+<pre><code>import torch.nn as nn
+import torch.nn.functional as F
+
+class Model(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.conv1 = nn.Conv2d(1, 20, 5)
+        self.conv2 = nn.Conv2d(20, 20, 5)
+
+    def forward(self, x):
+        x = F.relu(self.conv1(x))
+        return F.relu(self.conv2(x))
+</code></pre>
+<p>Submodules assigned in this way will be registered, and will have their
+parameters converted too when you call :meth:<code>to</code>, etc.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As per the example above, an <code>__init__()</code> call to the parent class
+must be made before assignment on the child.</p>
+</div>
+<p>:ivar training: Boolean represents whether this module is in training or
+evaluation mode.
+:vartype training: bool</p>
+<p>Initializes internal Module state, shared by both nn.Module and ScriptModule.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Conv1DNet(Net):
+    def __init__(self, h_sizes=[6, 768, 256, 64, 1], activation=torch.nn.LeakyReLU()):
+        super(Conv1DNet, self).__init__()
+
+        self.layers = torch.nn.ModuleList()
+        for k in range(len(h_sizes)-1):
+            # self.layers.append(torch.nn.Linear(h_sizes[k], h_sizes[k+1]))
+            self.layers.append(torch.nn.Conv1d(in_channels=h_sizes[k], out_channels=h_sizes[k+1], kernel_size=5, padding=&#39;same&#39;))
+            self.layers.append(activation)
+            if k != len(h_sizes)-1:
+                self.layers.append(torch.nn.BatchNorm1d(h_sizes[k+1]))
+
+            # self.layers.append(torch.nn.Dropout(p=0.5))
+
+        self.device = &#39;cuda&#39; if torch.cuda.is_available() else &#39;cpu&#39;
+        self.to(self.device)
+
+
+    def forward(self, x):
+        x = torch.permute(x, (0,2,1))
+        for layer in self.layers:
+            x = layer(x)    
+        return x.squeeze()</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="signal_quality.denoising.Net" href="#signal_quality.denoising.Net">Net</a></li>
+<li>torch.nn.modules.module.Module</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="signal_quality.denoising.Conv1DNet.dump_patches"><code class="name">var <span class="ident">dump_patches</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="signal_quality.denoising.Conv1DNet.training"><code class="name">var <span class="ident">training</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="signal_quality.denoising.Net" href="#signal_quality.denoising.Net">Net</a></b></code>:
+<ul class="hlist">
+<li><code><a title="signal_quality.denoising.Net.forward" href="#signal_quality.denoising.Net.forward">forward</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="signal_quality.denoising.LSTMNet"><code class="flex name class">
+<span>class <span class="ident">LSTMNet</span></span>
+<span>(</span><span>input_dim, hidden_dim, layer_dim, output_dim=1, activation=LeakyReLU(negative_slope=0.01))</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Base class for all neural network modules.</p>
+<p>Your models should also subclass this class.</p>
+<p>Modules can also contain other Modules, allowing to nest them in
+a tree structure. You can assign the submodules as regular attributes::</p>
+<pre><code>import torch.nn as nn
+import torch.nn.functional as F
+
+class Model(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.conv1 = nn.Conv2d(1, 20, 5)
+        self.conv2 = nn.Conv2d(20, 20, 5)
+
+    def forward(self, x):
+        x = F.relu(self.conv1(x))
+        return F.relu(self.conv2(x))
+</code></pre>
+<p>Submodules assigned in this way will be registered, and will have their
+parameters converted too when you call :meth:<code>to</code>, etc.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As per the example above, an <code>__init__()</code> call to the parent class
+must be made before assignment on the child.</p>
+</div>
+<p>:ivar training: Boolean represents whether this module is in training or
+evaluation mode.
+:vartype training: bool</p>
+<p>Initializes internal Module state, shared by both nn.Module and ScriptModule.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class LSTMNet(Net):
+    def __init__(self, input_dim, hidden_dim, layer_dim, output_dim=1, activation=torch.nn.LeakyReLU()):
+        super(LSTMNet, self).__init__()
+        &#34;&#34;&#34;
+        Flexible feed forward network over a base encoder. 
+        
+        Parameters
+        ---------- 
+        encoder_model: The base encoder model
+        h_sizes: Linear layer sizes to be used in the MLP
+        activation: Activation function to be use in the MLP. 
+        device: Device to use for training. &#39;cpu&#39; by default.
+        &#34;&#34;&#34;
+        self.layer_dim = layer_dim
+        self.hidden_dim = hidden_dim
+        self.device = &#39;cuda&#39; if torch.cuda.is_available() else &#39;cpu&#39;
+        self.activation = activation
+        
+        self.lstm = torch.nn.LSTM(input_dim, hidden_dim, layer_dim, batch_first=True)
+        self.fc = torch.nn.Linear(hidden_dim, output_dim)
+
+        self.to(self.device)
+
+    def forward(self, x):
+        # Initialize hidden state with zeros
+        h0 = torch.zeros(self.layer_dim, x.size(0), self.hidden_dim).requires_grad_().to(self.device)
+
+        # Initialize cell state
+        c0 = torch.zeros(self.layer_dim, x.size(0), self.hidden_dim).requires_grad_().to(self.device)
+
+        # We need to detach as we are doing truncated backpropagation through time (BPTT)
+        # If we don&#39;t, we&#39;ll backprop all the way to the start even after going through another batch
+        out, (hn, cn) = self.lstm(x, (h0.detach(), c0.detach()))
+        # out, (hn, cn) = self.lstm(x, (h0, c0))
+        # out shape is (batch_size, seq_len, hidden_dim)
+        
+        # Index hidden state of last time step
+        # print(out.shape)
+        out = self.activation(out)
+        out = self.fc(out)
+        # out shape is (batch_size, seq_len, 1)
+        out = out.squeeze()
+        # out shape is (batch_size, seq_len)
+        return out</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="signal_quality.denoising.Net" href="#signal_quality.denoising.Net">Net</a></li>
+<li>torch.nn.modules.module.Module</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="signal_quality.denoising.LSTMNet.dump_patches"><code class="name">var <span class="ident">dump_patches</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="signal_quality.denoising.LSTMNet.training"><code class="name">var <span class="ident">training</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="signal_quality.denoising.Net" href="#signal_quality.denoising.Net">Net</a></b></code>:
+<ul class="hlist">
+<li><code><a title="signal_quality.denoising.Net.forward" href="#signal_quality.denoising.Net.forward">forward</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="signal_quality.denoising.Net"><code class="flex name class">
+<span>class <span class="ident">Net</span></span>
+<span>(</span><span>h_sizes=[768, 256, 64, 2], activation=LeakyReLU(negative_slope=0.01))</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Base class for all neural network modules.</p>
+<p>Your models should also subclass this class.</p>
+<p>Modules can also contain other Modules, allowing to nest them in
+a tree structure. You can assign the submodules as regular attributes::</p>
+<pre><code>import torch.nn as nn
+import torch.nn.functional as F
+
+class Model(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.conv1 = nn.Conv2d(1, 20, 5)
+        self.conv2 = nn.Conv2d(20, 20, 5)
+
+    def forward(self, x):
+        x = F.relu(self.conv1(x))
+        return F.relu(self.conv2(x))
+</code></pre>
+<p>Submodules assigned in this way will be registered, and will have their
+parameters converted too when you call :meth:<code>to</code>, etc.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As per the example above, an <code>__init__()</code> call to the parent class
+must be made before assignment on the child.</p>
+</div>
+<p>:ivar training: Boolean represents whether this module is in training or
+evaluation mode.
+:vartype training: bool</p>
+<p>Initializes internal Module state, shared by both nn.Module and ScriptModule.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Net(torch.nn.Module):
+    def __init__(self, h_sizes=[768, 256, 64, 2], activation=torch.nn.LeakyReLU()):
+        super(Net, self).__init__()
+        &#34;&#34;&#34;
+        Flexible feed forward network over a base encoder. 
+        
+        Parameters
+        ---------- 
+        encoder_model: The base encoder model
+        h_sizes: Linear layer sizes to be used in the MLP
+        activation: Activation function to be use in the MLP. 
+        device: Device to use for training. &#39;cpu&#39; by default.
+        &#34;&#34;&#34;
+
+        self.device = torch.device(&#39;cuda&#39;) if torch.cuda.is_available() else torch.device(&#39;cpu&#39;)
+        self.layers = torch.nn.ModuleList()
+        for k in range(len(h_sizes)-1):
+            self.layers.append(torch.nn.Linear(h_sizes[k], h_sizes[k+1]))
+            self.layers.append(activation)
+            # self.layers.append(torch.nn.Dropout(p=0.5))
+        self.to(self.device)
+    
+    def forward(self, x):
+        for layer in self.layers:
+            x = layer(x)    
+        return x
+
+    def fit(self, x_train, y_train, batch_size=32, epochs=10, criterion=torch.nn.MSELoss(), lr=1e-3, weight_decay=1e-4, shuffle=True, seed=0):
+        assert type(x_train)==np.ndarray and type(y_train)==np.ndarray
+
+        np.random.seed(seed)
+
+        x_train = torch.from_numpy(x_train).float()
+        y_train = torch.from_numpy(y_train).float()
+
+        optimizer = torch.optim.Adam(self.parameters(), lr=lr, weight_decay=weight_decay)
+        print(self.device)
+        for epoch in tqdm(range(epochs)):
+            if shuffle:
+                inds = np.arange(len(x_train))
+                np.random.shuffle(inds)
+                x_train = x_train[inds]
+                y_train = y_train[inds]
+
+            for i in range(0, len(x_train), batch_size):
+                batch_x = x_train[i:i+batch_size].to(self.device)
+                batch_y = y_train[i:i+batch_size].to(self.device)
+                            
+                out = self.forward(batch_x)
+                loss = criterion(out, batch_y)
+
+                optimizer.zero_grad()
+                loss.backward()
+                optimizer.step()
+
+                if i % 10 == 0:
+                    tqdm.write(&#34;loss: {:.6f}&#34;.format(loss.detach().cpu().numpy()))
+
+    def predict(self, x, batch_size=200):
+        with torch.no_grad():
+            x = torch.from_numpy(x).float()
+            out = []
+            
+            for i in range(0, len(x), batch_size):
+                batch_x = x[i:i+batch_size].to(self.device)
+                out.append(self.forward(batch_x).cpu().numpy())
+            return np.concatenate(out)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>torch.nn.modules.module.Module</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="signal_quality.denoising.Conv1DAutoencoderNet" href="#signal_quality.denoising.Conv1DAutoencoderNet">Conv1DAutoencoderNet</a></li>
+<li><a title="signal_quality.denoising.Conv1DNet" href="#signal_quality.denoising.Conv1DNet">Conv1DNet</a></li>
+<li><a title="signal_quality.denoising.LSTMNet" href="#signal_quality.denoising.LSTMNet">LSTMNet</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="signal_quality.denoising.Net.dump_patches"><code class="name">var <span class="ident">dump_patches</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="signal_quality.denoising.Net.training"><code class="name">var <span class="ident">training</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="signal_quality.denoising.Net.fit"><code class="name flex">
+<span>def <span class="ident">fit</span></span>(<span>self, x_train, y_train, batch_size=32, epochs=10, criterion=MSELoss(), lr=0.001, weight_decay=0.0001, shuffle=True, seed=0)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def fit(self, x_train, y_train, batch_size=32, epochs=10, criterion=torch.nn.MSELoss(), lr=1e-3, weight_decay=1e-4, shuffle=True, seed=0):
+    assert type(x_train)==np.ndarray and type(y_train)==np.ndarray
+
+    np.random.seed(seed)
+
+    x_train = torch.from_numpy(x_train).float()
+    y_train = torch.from_numpy(y_train).float()
+
+    optimizer = torch.optim.Adam(self.parameters(), lr=lr, weight_decay=weight_decay)
+    print(self.device)
+    for epoch in tqdm(range(epochs)):
+        if shuffle:
+            inds = np.arange(len(x_train))
+            np.random.shuffle(inds)
+            x_train = x_train[inds]
+            y_train = y_train[inds]
+
+        for i in range(0, len(x_train), batch_size):
+            batch_x = x_train[i:i+batch_size].to(self.device)
+            batch_y = y_train[i:i+batch_size].to(self.device)
+                        
+            out = self.forward(batch_x)
+            loss = criterion(out, batch_y)
+
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+
+            if i % 10 == 0:
+                tqdm.write(&#34;loss: {:.6f}&#34;.format(loss.detach().cpu().numpy()))</code></pre>
+</details>
+</dd>
+<dt id="signal_quality.denoising.Net.forward"><code class="name flex">
+<span>def <span class="ident">forward</span></span>(<span>self, x) ‑> Callable[..., Any]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the :class:<code>Module</code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def forward(self, x):
+    for layer in self.layers:
+        x = layer(x)    
+    return x</code></pre>
+</details>
+</dd>
+<dt id="signal_quality.denoising.Net.predict"><code class="name flex">
+<span>def <span class="ident">predict</span></span>(<span>self, x, batch_size=200)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def predict(self, x, batch_size=200):
+    with torch.no_grad():
+        x = torch.from_numpy(x).float()
+        out = []
+        
+        for i in range(0, len(x), batch_size):
+            batch_x = x[i:i+batch_size].to(self.device)
+            out.append(self.forward(batch_x).cpu().numpy())
+        return np.concatenate(out)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="signal_quality" href="index.html">signal_quality</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="two-column">
+<li><code><a title="signal_quality.denoising.calc_snr" href="#signal_quality.denoising.calc_snr">calc_snr</a></code></li>
+<li><code><a title="signal_quality.denoising.calc_snr_ecg" href="#signal_quality.denoising.calc_snr_ecg">calc_snr_ecg</a></code></li>
+<li><code><a title="signal_quality.denoising.decompose_signal" href="#signal_quality.denoising.decompose_signal">decompose_signal</a></code></li>
+<li><code><a title="signal_quality.denoising.denoise_emd" href="#signal_quality.denoising.denoise_emd">denoise_emd</a></code></li>
+<li><code><a title="signal_quality.denoising.denoise_nn" href="#signal_quality.denoising.denoise_nn">denoise_nn</a></code></li>
+<li><code><a title="signal_quality.denoising.denoise_wavelet" href="#signal_quality.denoising.denoise_wavelet">denoise_wavelet</a></code></li>
+<li><code><a title="signal_quality.denoising.get_power" href="#signal_quality.denoising.get_power">get_power</a></code></li>
+<li><code><a title="signal_quality.denoising.load_data" href="#signal_quality.denoising.load_data">load_data</a></code></li>
+<li><code><a title="signal_quality.denoising.rescale_signal" href="#signal_quality.denoising.rescale_signal">rescale_signal</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="signal_quality.denoising.Conv1DAutoencoderNet" href="#signal_quality.denoising.Conv1DAutoencoderNet">Conv1DAutoencoderNet</a></code></h4>
+<ul class="">
+<li><code><a title="signal_quality.denoising.Conv1DAutoencoderNet.dump_patches" href="#signal_quality.denoising.Conv1DAutoencoderNet.dump_patches">dump_patches</a></code></li>
+<li><code><a title="signal_quality.denoising.Conv1DAutoencoderNet.training" href="#signal_quality.denoising.Conv1DAutoencoderNet.training">training</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="signal_quality.denoising.Conv1DNet" href="#signal_quality.denoising.Conv1DNet">Conv1DNet</a></code></h4>
+<ul class="">
+<li><code><a title="signal_quality.denoising.Conv1DNet.dump_patches" href="#signal_quality.denoising.Conv1DNet.dump_patches">dump_patches</a></code></li>
+<li><code><a title="signal_quality.denoising.Conv1DNet.training" href="#signal_quality.denoising.Conv1DNet.training">training</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="signal_quality.denoising.LSTMNet" href="#signal_quality.denoising.LSTMNet">LSTMNet</a></code></h4>
+<ul class="">
+<li><code><a title="signal_quality.denoising.LSTMNet.dump_patches" href="#signal_quality.denoising.LSTMNet.dump_patches">dump_patches</a></code></li>
+<li><code><a title="signal_quality.denoising.LSTMNet.training" href="#signal_quality.denoising.LSTMNet.training">training</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="signal_quality.denoising.Net" href="#signal_quality.denoising.Net">Net</a></code></h4>
+<ul class="">
+<li><code><a title="signal_quality.denoising.Net.dump_patches" href="#signal_quality.denoising.Net.dump_patches">dump_patches</a></code></li>
+<li><code><a title="signal_quality.denoising.Net.fit" href="#signal_quality.denoising.Net.fit">fit</a></code></li>
+<li><code><a title="signal_quality.denoising.Net.forward" href="#signal_quality.denoising.Net.forward">forward</a></code></li>
+<li><code><a title="signal_quality.denoising.Net.predict" href="#signal_quality.denoising.Net.predict">predict</a></code></li>
+<li><code><a title="signal_quality.denoising.Net.training" href="#signal_quality.denoising.Net.training">training</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

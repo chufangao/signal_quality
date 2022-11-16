@@ -1,4 +1,3 @@
-from turtle import forward
 import torch
 from tqdm import tqdm
 import pywt
