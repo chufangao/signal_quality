@@ -46,8 +46,7 @@ def featurize_ecg(window, sampling_rate, show=False):
         rmssd = pyhrv.time_domain.rmssd(nni=nni)[0]
 
         # frequency-domain features
-        fft = pyhrv.frequency_domain.welch_psd(nni=nni, show=False, 
-                                                show_param=False, legend=False)
+        fft = pyhrv.frequency_domain.welch_psd(nni=nni, show=False, show_param=False, legend=False)
         plt.clf()
         plt.close()
 
@@ -92,73 +91,74 @@ def featurize_pleth(window, pleth_time):
     ts_feature_names = ['Pleth_systolic_amplitudes', 'Pleth_peak_to_peak_interval', 'Pleth_pulse_interval',
         'Pleth_upstroke_time', 'Pleth_beat_skewness']
 
-    pleth_features = np.array([np.nan]*15)
     # pleth_feature_names =  ['']*15
 
+    try:
+        # segment pleth ------------------------------------------------------
+        beat_start, _ = scipy.signal.find_peaks(-1 * window, distance=50)
+        if len(beat_start) > 0:
 
-    # segment pleth ------------------------------------------------------
-    beat_start, _ = scipy.signal.find_peaks(-1 * window, distance=50)
-    if len(beat_start) > 0:
+            beat_end = np.roll(beat_start, -1) # Roll start arrays by one before
+            beat_start = beat_start[:-1]
+            beat_end = beat_end[:-1]
+            beat_start_time = pleth_time[beat_start]
+            beat_end_time = pleth_time[beat_end]
 
-        beat_end = np.roll(beat_start, -1) # Roll start arrays by one before
-        beat_start = beat_start[:-1]
-        beat_end = beat_end[:-1]
-        beat_start_time = pleth_time[beat_start]
-        beat_end_time = pleth_time[beat_end]
-
-        # find_systolic_peaks ------------------------------------------------------
-        systolic_peaks, _ = scipy.signal.find_peaks(window[beat_start[0]:beat_end[-1]], distance=50) # The beats are at least 50 samples away. 
-        systolic_peaks = systolic_peaks + beat_start[0]
-        # Only compute beats from the start of the first beat to the end of the last beat
-        # The amplitude is y-coordinate of the signal at the position of the peak
-        systolic_peaks_time = pleth_time[systolic_peaks]
-        systolic_amplitudes = window[systolic_peaks] 
-        
-        # find_upstroke_time ------------------------------------------------------
-        try:
-            upstroke_time = systolic_peaks_time - beat_start_time
-        except: # Sometimes there is a mismatch between the number of systolic peaks and beats
-            upstroke_time_ = []
-            systolic_peaks_ = []
-            systolic_amplitudes_ = []
-            for i in range(len(beat_start)):
-                systolic_peak = systolic_peaks[systolic_peaks > beat_start[i]]
-                if len(systolic_peak) > 0: # Due to some issues, the last beat may not have an associated systolic peak
-                    systolic_peak = systolic_peak[0] # Consider the closest systolic peak to the beat start time
-                    amp_at_times = window[systolic_peak]
-                    systolic_peaks_.append(systolic_peak)
-                    systolic_amplitudes_.append(amp_at_times)
-                    upstroke_time_.append(pleth_time[systolic_peak] - pleth_time[beat_start[i]])
-
-            systolic_peaks = np.asarray(systolic_peaks_)
+            # find_systolic_peaks ------------------------------------------------------
+            systolic_peaks, _ = scipy.signal.find_peaks(window[beat_start[0]:beat_end[-1]], distance=50) # The beats are at least 50 samples away. 
+            systolic_peaks = systolic_peaks + beat_start[0]
+            # Only compute beats from the start of the first beat to the end of the last beat
+            # The amplitude is y-coordinate of the signal at the position of the peak
             systolic_peaks_time = pleth_time[systolic_peaks]
-            systolic_amplitudes = np.asarray(systolic_amplitudes_)
-            upstroke_time = np.asarray(upstroke_time_)
+            systolic_amplitudes = window[systolic_peaks] 
+            
+            # find_upstroke_time ------------------------------------------------------
+            try:
+                upstroke_time = systolic_peaks_time - beat_start_time
+            except: # Sometimes there is a mismatch between the number of systolic peaks and beats
+                upstroke_time_ = []
+                systolic_peaks_ = []
+                systolic_amplitudes_ = []
+                for i in range(len(beat_start)):
+                    systolic_peak = systolic_peaks[systolic_peaks > beat_start[i]]
+                    if len(systolic_peak) > 0: # Due to some issues, the last beat may not have an associated systolic peak
+                        systolic_peak = systolic_peak[0] # Consider the closest systolic peak to the beat start time
+                        amp_at_times = window[systolic_peak]
+                        systolic_peaks_.append(systolic_peak)
+                        systolic_amplitudes_.append(amp_at_times)
+                        upstroke_time_.append(pleth_time[systolic_peak] - pleth_time[beat_start[i]])
 
-        # get_skewness_beats() ------------------------------------------------------
-        beat_skewness = np.asarray([
-            scipy.stats.skew(window[beat_start[i]:beat_end[i]]) 
-            for i in range(beat_start.shape[0])
-            ])
+                systolic_peaks = np.asarray(systolic_peaks_)
+                systolic_peaks_time = pleth_time[systolic_peaks]
+                systolic_amplitudes = np.asarray(systolic_amplitudes_)
+                upstroke_time = np.asarray(upstroke_time_)
 
-        # find_pulse_interval() ------------------------------------------------------
-        pulse_interval = beat_start_time - np.roll(beat_start_time, 1)
-        pulse_interval[0] = pulse_interval[1]
+            # get_skewness_beats() ------------------------------------------------------
+            beat_skewness = np.asarray([
+                scipy.stats.skew(window[beat_start[i]:beat_end[i]]) 
+                for i in range(beat_start.shape[0])
+                ])
 
-        # find_peak_to_peak_interval() ------------------------------------------------------
-        peak_to_peak_interval = systolic_peaks_time - np.roll(systolic_peaks_time, 1)
-        peak_to_peak_interval[0] = peak_to_peak_interval[1]
+            # find_pulse_interval() ------------------------------------------------------
+            pulse_interval = beat_start_time - np.roll(beat_start_time, 1)
+            pulse_interval[0] = pulse_interval[1]
 
-        # get_feature_aggregates() ------------------------------------------------------
-        pleth_features = []
-        # pleth_feature_names = []
-        for i, ts_features in enumerate([systolic_amplitudes, peak_to_peak_interval, 
-                                        pulse_interval, upstroke_time, beat_skewness]):
-            median = np.median(ts_features)
-            IQR = np.quantile(ts_features, q=0.75) - np.quantile(ts_features, q=0.25)
-            slope = np.polyfit(x = np.arange(ts_features.shape[0]), y = ts_features, deg = 1)[0]
-            pleth_features = pleth_features + [median, IQR, slope]
-            # pleth_feature_names += [ts_feature_names[i] + '_median', ts_feature_names[i] + '_IQR', ts_feature_names[i] + '_slope']
+            # find_peak_to_peak_interval() ------------------------------------------------------
+            peak_to_peak_interval = systolic_peaks_time - np.roll(systolic_peaks_time, 1)
+            peak_to_peak_interval[0] = peak_to_peak_interval[1]
 
+            # get_feature_aggregates() ------------------------------------------------------
+            pleth_features = []
+            # pleth_feature_names = []
+            for i, ts_features in enumerate([systolic_amplitudes, peak_to_peak_interval, 
+                                            pulse_interval, upstroke_time, beat_skewness]):
+                median = np.median(ts_features)
+                IQR = np.quantile(ts_features, q=0.75) - np.quantile(ts_features, q=0.25)
+                slope = np.polyfit(x = np.arange(ts_features.shape[0]), y = ts_features, deg = 1)[0]
+                pleth_features = pleth_features + [median, IQR, slope]
+                # pleth_feature_names += [ts_feature_names[i] + '_median', ts_feature_names[i] + '_IQR', ts_feature_names[i] + '_slope']
 
-    return pleth_features
+        return pleth_features
+    except Exception as e:
+        return [np.nan]*15
+
